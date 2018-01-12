@@ -15,26 +15,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lombok.extern.java.Log;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class UserControllerTest {
-	private static final Logger log = LoggerFactory.getLogger(UserControllerTest.class);
+public class BoardAcceptanceTest {
+	private static final Logger log = LoggerFactory.getLogger(BoardAcceptanceTest.class);
 	@Autowired
 	private TestRestTemplate template;
 
 	@Test
-	public void createForm() {
-		ResponseEntity<String> response = template.getForEntity("/create", String.class);
+	public void board() {
+		ResponseEntity<String> response = template.getForEntity("/board", String.class);
 		assertThat(response.getStatusCode(), is(HttpStatus.OK));
 		log.debug("body : {}", response.getBody());
 	}
 
-	@Test
-	public void loginForm() {
-		ResponseEntity<String> response = template.getForEntity("/login", String.class);
-		assertThat(response.getStatusCode(), is(HttpStatus.OK));
-		log.debug("body : {}", response.getBody());
-	}
 }
