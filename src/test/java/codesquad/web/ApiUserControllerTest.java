@@ -1,5 +1,7 @@
 package codesquad.web;
 
+import static io.restassured.RestAssured.given;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,13 +13,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import codesquad.dto.UserDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import static io.restassured.RestAssured.given;
 import lombok.extern.java.Log;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Log
-public class ApiLoginAcceptanceTest {
+public class ApiUserControllerTest {
 	@Value("${local.server.port}")
 	private int serverPort;
 
@@ -27,37 +28,27 @@ public class ApiLoginAcceptanceTest {
 	}
 
 	@Test
-	public void loginSuccess() throws Exception {
-		UserDto newUser = new UserDto("hue@korea.kr", "password");
+	public void createSuccess() throws Exception {
+		UserDto newUser = new UserDto("testUser", "password", "testUser@korea.kr");
 		given()
 			.contentType(ContentType.JSON)
 			.body(newUser)
 			.when()
-			.post("/api/login")
+			.post("/api/users")
 			.then()
 			.statusCode(HttpStatus.OK.value());
 	}
-
+	
 	@Test
-	public void loginEmptyEmail() throws Exception {
-		UserDto newUser = new UserDto("wwww" + "hue@korea.kr", "password");
+	public void createAlreadyExistedUser() throws Exception {
+		UserDto newUser = new UserDto("testUser", "password", "hue@korea.kr");
 		given()
 			.contentType(ContentType.JSON)
 			.body(newUser)
 			.when()
-			.post("/api/login").then()
-			.statusCode(HttpStatus.UNAUTHORIZED.value());
+			.post("/api/users")
+			.then()
+			.statusCode(HttpStatus.FORBIDDEN.value());
 	}
-
-	@Test
-	public void loginOtherPassword() throws Exception {
-		UserDto newUser = new UserDto("hue@korea.kr", "password" + "222");
-		given()
-			.contentType(ContentType.JSON)
-			.body(newUser)
-			.when()
-			.post("/api/login").then()
-			.statusCode(HttpStatus.UNAUTHORIZED.value());
-	}
-
+	
 }

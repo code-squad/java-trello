@@ -9,7 +9,7 @@ function login(e) {
 	};
 	var json = JSON.stringify(data);
 	var url = $(".login-form").attr("action");
-
+	
 	$.ajax({
 		type : 'post',
 		url : url,

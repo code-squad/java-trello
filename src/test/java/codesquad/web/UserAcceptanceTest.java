@@ -30,6 +30,7 @@ import codesquad.domain.UserRepository;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class UserAcceptanceTest {
 	private static final Logger log = LoggerFactory.getLogger(UserAcceptanceTest.class);
+
 	@Autowired
 	private TestRestTemplate template;
 

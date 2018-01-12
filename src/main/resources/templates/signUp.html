@@ -11,14 +11,14 @@
     {{> header}}
 
       <div class="signup-box z-depth-2">
-
+			<h6 id="signUpFail" ></h6>
           <h4>Create a Account</h4>
 
-          <form class="signup-form" action="/create" method="POST">
+          <form class="signup-form" action="/api/users" method="POST">
             <div class="row">
                 <div class="input-field col s12">
-                  <input id="user_name" name="name" type="text" class="validate">
-                  <label for="user_name">Username</label>
+                  <input id="name" name="name" type="text" class="validate">
+                  <label for="name">Username</label>
                 </div>
             </div>
 
@@ -42,5 +42,6 @@
 
       <script type="text/javascript" src="/lib/jquery-2.2.0.min.js"></script>
       <script type="text/javascript" src="/lib/materialize.min.js"></script>
+		<script type="text/javascript" src="/js/signUp.js"></script>
     </body>
   </html>
