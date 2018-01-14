@@ -18,7 +18,7 @@ import lombok.extern.java.Log;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Log
-public class ApiUserControllerTest {
+public class ApiUserAcceptanceTest {
 	@Value("${local.server.port}")
 	private int serverPort;
 
