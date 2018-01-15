@@ -10,18 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
 public class Member {
 	@Id
 	@GeneratedValue
-	@Column(name="MEMBER_ID")
-	@Getter
+	@Column(name = "MEMBER_ID")
 	private long id;
-	@Getter
-	@Setter
 	@ManyToMany
 	@JoinTable(name = "USER_MEMBER")
 	private List<User> users;
@@ -29,6 +23,22 @@ public class Member {
 	public Member(User user) {
 		this.users = new ArrayList<>();
 		users.add(user);
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }

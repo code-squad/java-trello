@@ -1,8 +1,6 @@
 package codesquad.domain;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,43 +13,40 @@ import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@ToString
 public class User {
+    public static final GuestUser GUEST_USER = new GuestUser();
+	
 	@Id
 	@GeneratedValue
 	@Column(name="USER_ID")
-	@Getter
 	private long id;
 
 	@Size(min = 3, max = 20)
 	@Column(nullable = false, length = 20)
-	@Getter
-	@Setter
 	private String name;
 
 	@Size(min = 6, max = 20)
 	@Column(nullable = false, length = 20)
 	@JsonIgnore
-	@Getter
-	@Setter
 	private String password;
 
 	@Email
 	@Size(min = 6, max = 50)
 	@Column(unique = true, nullable = false, length = 50)
-	@Getter
-	@Setter
 	private String email;
 	
 	@ManyToMany
-	@Getter
-	@Setter
 	private List<Member> memberList;
 
 	public User() {
+	}
+	
+	public User(String email, String password) {
+		this("", password, email);
 	}
 
 	public User(String name, String password, String email) {
@@ -73,13 +68,63 @@ public class User {
 		memberList.add(member);
 	}
 	
+    @JsonIgnore
+    public boolean isGuestUser() {
+        return false;
+    }
+
+	private static class GuestUser extends User {
+        @Override
+        public boolean isGuestUser() {
+            return true;
+        }
+    }
+	
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Member> getMemberList() {
+		return memberList;
+	}
+
+	public void setMemberList(List<Member> memberList) {
+		this.memberList = memberList;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
@@ -97,13 +142,6 @@ public class User {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
 			return false;
 		if (password == null) {
 			if (other.password != null)

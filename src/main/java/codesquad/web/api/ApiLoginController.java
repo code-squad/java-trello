@@ -34,9 +34,10 @@ public class ApiLoginController {
 		return new ResponseEntity<Void>(headers, HttpStatus.OK);
 	}
 
-	@ExceptionHandler(UnAuthenticationException.class)
-	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-	public void unAuthentication() {
-		log.debug("UnAuthenticationException is happened!");
-	}
+	//TODO : ControllerAdvice쪽으로 빠짐. 삭제는 잠시 보류 중
+//	@ExceptionHandler(UnAuthenticationException.class)
+//	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+//	public void unAuthentication() {
+//		log.debug("UnAuthenticationException is happened!");
+//	}
 }

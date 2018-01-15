@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import codesquad.AlreadyExistedUserException;
@@ -13,6 +15,7 @@ import codesquad.domain.UserRepository;
 
 @Service("userService")
 public class UserService {
+	private static final Logger log = LoggerFactory.getLogger(UserService.class);
 	@Resource(name = "userRepository")
 	private UserRepository userRepository;
 

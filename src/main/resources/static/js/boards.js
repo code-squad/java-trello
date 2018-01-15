@@ -26,10 +26,21 @@ var BOARDS = (function (window){
 			$(".warning").css("display","block");
 			return;
 		}
+		var data = {
+				'userId' : 1,
+				'boardName' : $('.board-name').val()
+			};
 
-		// $.ajax({
-		//
-		// }).done(function(){
+		  //위에서 만든 오브젝트를 json 타입으로 바꾼다.
+			var json = JSON.stringify(data);
+			var url = $(".add-board-form").attr("action");
+		 $.ajax({
+			type: 'post',
+			url: url,
+			data: json,
+			dataType: 'json',
+			contentType: 'application/json'
+		 }).done(function(){
 
             $(".warning").css("display","none");
             var str = Template.board.replace(/\{\{input-value\}\}/gi,boardName);
@@ -37,9 +48,9 @@ var BOARDS = (function (window){
             $("#modal").modal("close");
             $(".board-list").append(str);
 
-		// }).fail(function(){
-        //
-		// });
+		 }).fail(function(){
+        
+		 });
 
     }
 
