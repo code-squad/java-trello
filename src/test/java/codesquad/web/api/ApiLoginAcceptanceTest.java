@@ -1,4 +1,4 @@
-package codesquad.web;
+package codesquad.web.api;
 
 import org.junit.Before;
 import org.junit.Test;
