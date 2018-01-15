@@ -11,17 +11,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Member {
+public class Members {
 	@Id
 	@GeneratedValue
-	@Column(name = "MEMBER_ID")
+	@Column(name = "MEMBERS_ID")
 	private long id;
-	@ManyToMany
-	@JoinTable(name = "USER_MEMBER")
-	private List<User> users;
+	@ManyToMany(mappedBy = "membersList")
+	private List<User> users = new ArrayList<>();
 
-	public Member(User user) {
-		this.users = new ArrayList<>();
+	public Members(User user) {
 		users.add(user);
 	}
 
@@ -36,9 +34,9 @@ public class Member {
 	public List<User> getUsers() {
 		return users;
 	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+//
+//	public void setUsers(List<User> member_users) {
+//		this.users = users;
+//	}
 
 }

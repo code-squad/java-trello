@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import codesquad.domain.Board;
-import codesquad.domain.Member;
+import codesquad.domain.Members;
+import codesquad.domain.User;
 import codesquad.dto.BoardsDto;
+import codesquad.security.LoginUser;
 import codesquad.service.BoardService;
-import codesquad.service.MemberService;
+import codesquad.service.MembersService;
 
 @RestController
 @RequestMapping("/api/boards")
@@ -25,15 +27,28 @@ public class ApiBoardsController {
 	@Resource(name = "boardsService")
 	private BoardService boardService;
 
-	@Resource(name = "memberService")
-	private MemberService memberService;
+	@Resource(name = "membersService")
+	private MembersService membersService;
 
+//	@PostMapping("")
+//	public ResponseEntity<BoardsDto> createBoard(@RequestBody BoardsDto boardsDto) {
+//		Member member = memberService.create(boardsDto.getUserId());
+//		Board board = boardService.create(boardsDto.getBoardName(), member.getId());
+//		boardsDto.setBoardId(board.getId());
+//		HttpHeaders headers = new HttpHeaders();
+//		return new ResponseEntity<BoardsDto>(boardsDto, headers, HttpStatus.CREATED);
+//	}
+//	
 	@PostMapping("")
-	public ResponseEntity<BoardsDto> createBoard(@RequestBody BoardsDto boardsDto) {
-		Member member = memberService.create(boardsDto.getUserId());
-		Board board = boardService.create(boardsDto.getBoardName(), member.getId());
+	public ResponseEntity<BoardsDto> createBoard(@LoginUser User user, @RequestBody BoardsDto boardsDto) {
+//		Member member = memberService.create(user.getId());
+		log.error("create members before");
+		Members members = membersService.create(user);
+		log.error("create members after");
+		Board board = boardService.create(boardsDto.getBoardName(), members.getId());
 		boardsDto.setBoardId(board.getId());
 		HttpHeaders headers = new HttpHeaders();
+		log.error("done");
 		return new ResponseEntity<BoardsDto>(boardsDto, headers, HttpStatus.CREATED);
 	}
 

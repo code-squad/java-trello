@@ -13,16 +13,16 @@ public class Board {
 	@Column(name="BOARD_ID")
 	private long id;
 	@OneToOne
-	private Member member;
+	private Members members;
 	@Column(nullable = false)
 	private String boardName;
 	
-	public Board(String boardName, long memberId) {
+	public Board(String boardName, long membersId) {
 		this.boardName = boardName;
 	}
-	public Board(String boardName, Member member) {
+	public Board(String boardName, Members members) {
 		this.boardName = boardName;
-		this.member = member;
+		this.members = members;
 	}
 	public long getId() {
 		return id;
@@ -30,11 +30,11 @@ public class Board {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Member getMember() {
-		return member;
+	public Members getMembers() {
+		return members;
 	}
-	public void setMember(Member member) {
-		this.member = member;
+	public void setMembers(Members members) {
+		this.members = members;
 	}
 	public String getBoardName() {
 		return boardName;

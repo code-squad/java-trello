@@ -1,7 +1,6 @@
 package codesquad.web.api;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,11 +28,14 @@ public class ApiBoardsAcceptanceTest {
 	public void setup() {
 		RestAssured.port = serverPort;
 	}
-	
+	//auth(). preemptive().basic("username", "password") 
 	@Test
 	public void createBoard() {
-		BoardsDto boardsDto = new BoardsDto(1L, "newBoard");
+		BoardsDto boardsDto = new BoardsDto("newBoard");
 		given()
+			.auth()
+			.preemptive()
+			.basic("hue@korea.kr","password")
 			.contentType(ContentType.JSON)
 			.body(boardsDto)
 			.when()
@@ -42,4 +44,16 @@ public class ApiBoardsAcceptanceTest {
 			.statusCode(HttpStatus.CREATED.value())
 			.extract().as(BoardsDto.class);		
 	}
+	//	@Test
+//	public void createBoard() {
+//		BoardsDto boardsDto = new BoardsDto("newBoard");
+//		given()
+//			.contentType(ContentType.JSON)
+//			.body(boardsDto)
+//			.when()
+//			.post("/api/boards")
+//			.then()
+//			.statusCode(HttpStatus.CREATED.value())
+//			.extract().as(BoardsDto.class);		
+//	}
 }

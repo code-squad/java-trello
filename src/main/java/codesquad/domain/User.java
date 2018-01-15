@@ -1,23 +1,27 @@
 package codesquad.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.ToString;
 
 @Entity
-@ToString
 public class User {
+	private static final Logger log = LoggerFactory.getLogger(User.class);
     public static final GuestUser GUEST_USER = new GuestUser();
 	
 	@Id
@@ -40,7 +44,8 @@ public class User {
 	private String email;
 	
 	@ManyToMany
-	private List<Member> memberList;
+	@JoinTable(name = "USER_MEMBERS")
+	private List<Members> membersList = new ArrayList<>();
 
 	public User() {
 	}
@@ -64,8 +69,11 @@ public class User {
 		return password.equals(this.password);
 	}
 
-	public void addMember(Member member) {
-		memberList.add(member);
+	public void addMembers(Members members) {
+		log.error("members : {}", members);
+		log.error("add members before");
+		membersList.add(members);
+		log.error("add members after");
 	}
 	
     @JsonIgnore
@@ -112,13 +120,13 @@ public class User {
 		this.email = email;
 	}
 
-	public List<Member> getMemberList() {
-		return memberList;
+	public List<Members> getMembersList() {
+		return membersList;
 	}
 
-	public void setMemberList(List<Member> memberList) {
-		this.memberList = memberList;
-	}
+//	public void setMemberList(List<Member> memberList) {
+//		this.memberList = memberList;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -151,4 +159,10 @@ public class User {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", MembersList="
+				+ membersList + "]";
+	}
+	
 }

@@ -2,6 +2,6 @@ package codesquad.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<Member, Long>{
+public interface MembersRepository extends JpaRepository<Members, Long>{
 
 }

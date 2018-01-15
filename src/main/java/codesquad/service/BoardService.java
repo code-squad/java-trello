@@ -12,8 +12,8 @@ public class BoardService {
 	@Resource(name = "boardRepository")
 	private BoardRepository boardRepository;
 
-	public Board create(String boardName, long memberId) {
-		return boardRepository.save(new Board(boardName, memberId));
+	public Board create(String boardName, long membersId) {
+		return boardRepository.save(new Board(boardName, membersId));
 	}
 
 }

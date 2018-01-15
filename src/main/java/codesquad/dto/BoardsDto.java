@@ -7,6 +7,10 @@ public class BoardsDto {
 
 	public BoardsDto() {
 	}
+	
+	public BoardsDto(String boardName) {
+		this.boardName = boardName;
+	}
 
 	public BoardsDto(long userId, String boardName) {
 		this.userId = userId;
