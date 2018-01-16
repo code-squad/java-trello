@@ -29,7 +29,7 @@ var BOARDS = (function (window){
 			return;
 		}
 		var data = {
-				'boardName' : $('.board-name').val()
+				'name' : $('.board-name').val()
 			};
 
 		  // 위에서 만든 오브젝트를 json 타입으로 바꾼다.
@@ -42,9 +42,8 @@ var BOARDS = (function (window){
 			dataType: 'json',
 			contentType: 'application/json'
 		 }).done(function(data){
-			 console.log(data);
             $(".warning").css("display","none");
-            	var board = boardTemplate({"id":data.boardId, "input-value":data.boardName})
+            	var board = boardTemplate({"id":data.id, "input-value":data.name})
 
             $(".board-name").val("");
             $("#modal").modal("close");

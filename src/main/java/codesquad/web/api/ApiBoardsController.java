@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import codesquad.domain.Board;
 import codesquad.domain.User;
-import codesquad.dto.BoardDto;
 import codesquad.security.LoginUser;
 import codesquad.service.BoardService;
 import codesquad.service.UserService;
@@ -39,11 +38,11 @@ public class ApiBoardsController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<BoardDto> createBoard(@LoginUser User user, @RequestBody BoardDto boardsDto) {
+	public ResponseEntity<Board> createBoard(@LoginUser User user, @RequestBody Board board) {
 		User dbUser = userService.getDbUser(user);
-		Board board = boardService.create(boardsDto.getBoardName(), dbUser);
+		Board dbBoard = boardService.create(board);
 		userService.addBoard(dbUser, board);
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<BoardDto>(board.toBoardDto(), headers, HttpStatus.CREATED);
+		return new ResponseEntity<Board>(dbBoard, headers, HttpStatus.CREATED);
 	}
 }
