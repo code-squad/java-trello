@@ -1,0 +1,14 @@
+<header>
+	<div class="header-wrapper">
+		<a href="/" class="brand-logo">JWP Trello</a>
+		<ul>
+		{{^loginedUser }}
+			<li><a href="/create">sign up</a></li>
+			<li><a href="/login">login</a></li>
+		{{/loginedUser }}
+       {{#loginedUser }}
+	       <li><a href="/logout">logout</a></li>
+		{{/loginedUser }}
+		</ul>
+	</div>
+</header>

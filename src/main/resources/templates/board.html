@@ -1,20 +1,13 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link type="text/css" rel="stylesheet" href="./lib/materialize.min.css"  media="screen,projection"/>
-  <link type="text/css" rel="stylesheet" href="./css/board.css"/>
+  <link type="text/css" rel="stylesheet" href="/lib/materialize.min.css"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="/css/board.css"/>
 </head>
 
 <body>
 
-  <header>
-    <div class="header-wrapper">
-      <a href="#" class="brand-logo">JWP Trello</a>
-      <ul>
-        <li><a href="#">logout</a></li>
-      </ul>
-    </div>
-  </header>
+	{{> header}}
 
   <div class="board-header-area">
       <p class="board-name">Default Board</p>
@@ -22,7 +15,7 @@
       <div class="member-list z-depth-1">
           <ul class="members">
             <li class="member">
-                <img src="./image/profile.png" />
+                <img src="/image/profile.png" />
                 <span class="member-name">Javajigi</span>
             </li>
           </ul>
@@ -169,10 +162,10 @@
 
   <!----------------------------------------------------------------->
 
-  <script type="text/javascript" src="lib/jquery-2.2.0.min.js"></script>
-  <script type="text/javascript" src="lib/materialize.min.js"></script>
-  <script type="text/javascript" src="lib/handlebars-v4.0.5.js"></script>
-  <script type="text/javascript" src="js/template.js"></script>
-  <script type="text/javascript" src="js/board.js"></script>
+  <script type="text/javascript" src="/lib/jquery-2.2.0.min.js"></script>
+  <script type="text/javascript" src="/lib/materialize.min.js"></script>
+  <script type="text/javascript" src="/lib/handlebars-v4.0.5.js"></script>
+  <script type="text/javascript" src="/js/template.js"></script>
+  <script type="text/javascript" src="/js/board.js"></script>
 </body>
 </html>

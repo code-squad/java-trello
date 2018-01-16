@@ -42,6 +42,47 @@ header .header-wrapper .brand-logo{
   padding-top: 10px;
 }
 
+header .header-wrapper ul {
+
+    float: right;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+}
+
+header .header-wrapper li {
+
+    list-style-type: none;
+    float: right;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header .header-wrapper li a{
+
+    font-size: 1rem;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    width: 75px;
+    height: 50px;
+    line-height: 50px;
+    color: rgba(255,255,255,0.9);
+    font-family: 'Noto Sans Light',sans-serif;
+    font-weight: 100;
+    transition: all .5s ease 0s;
+
+}
+
+header .header-wrapper li a:hover{
+
+    background-color: rgba(0,0,0,0.1);
+    color: white;
+
+}
+
 .signup-box h4 {
 
   /*font-family: '60sSTRIPE';*/
