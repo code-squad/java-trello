@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import codesquad.domain.Board;
-import codesquad.domain.BoardRepository;
 import codesquad.domain.User;
-import codesquad.domain.UserRepository;
 import codesquad.dto.BoardDto;
 import codesquad.security.LoginUser;
 import codesquad.service.BoardService;
@@ -32,10 +30,6 @@ public class ApiBoardsController {
 	private BoardService boardService;
 	@Resource(name = "userService")
 	private UserService userService;
-	@Resource(name = "userRepository")
-	private UserRepository userRepository;
-	@Resource(name = "boardRepository")
-	private BoardRepository boardRepository;
 
 	// 현재 미사용. ajax기반으로 만들게 되면 사용 가능 할듯
 	@GetMapping("")
@@ -46,8 +40,9 @@ public class ApiBoardsController {
 
 	@PostMapping("")
 	public ResponseEntity<BoardDto> createBoard(@LoginUser User user, @RequestBody BoardDto boardsDto) {
-		User dbUser = userRepository.getOne(user.getId());
+		User dbUser = userService.getDbUser(user);
 		Board board = boardService.create(boardsDto.getBoardName(), dbUser);
+		userService.addBoard(dbUser, board);
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<BoardDto>(board.toBoardDto(), headers, HttpStatus.CREATED);
 	}

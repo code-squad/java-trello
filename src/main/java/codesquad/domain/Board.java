@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 
 import codesquad.dto.BoardDto;
 
@@ -24,6 +25,7 @@ public class Board {
 	@Column(nullable = false)
 	private String name;
 	@ManyToMany(mappedBy = "boardList")
+	@OrderBy("id ASC")
 	private List<User> users = new ArrayList<>();
 	
 	public Board() {
@@ -31,8 +33,6 @@ public class Board {
 
 	public Board(String name, User user) {
 		this.name = name;
-//		users.add(user);
-		user.addBoard(this);
 	}
 
 	public long getId() {
@@ -66,5 +66,11 @@ public class Board {
 	public BoardDto toBoardDto() {
 		return new BoardDto(id, name);
 	}
+
+	@Override
+	public String toString() {
+		return "Board [id=" + id + ", name=" + name + "]";
+	}
+	
 
 }

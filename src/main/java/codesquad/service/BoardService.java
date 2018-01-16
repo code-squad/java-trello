@@ -17,12 +17,6 @@ public class BoardService {
 	private UserRepository userRepository;
 
 	public Board create(String boardName, User user) {
-//		Board board = boardRepository.save(new Board(boardName));
-		Board board = boardRepository.save(new Board(boardName, user));
-//		board.addUser(user);
-//		user.addBoard(board);
-//		boardRepository.save(board);
-//		userRepository.save(user);
-		return board;
+		return boardRepository.save(new Board(boardName, user));
 	}
 }

@@ -1,7 +1,6 @@
 package codesquad.domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -45,7 +44,7 @@ public class User {
 	private String email;
 
 	@ManyToMany
-	@OrderBy("id DESC")
+	@OrderBy("id ASC")
 	@JoinTable(name = "board_list",
 	joinColumns = @JoinColumn(name = "USER_ID"),
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID"))

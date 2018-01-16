@@ -42,6 +42,7 @@ var BOARDS = (function (window){
 			dataType: 'json',
 			contentType: 'application/json'
 		 }).done(function(data){
+			 console.log(data);
             $(".warning").css("display","none");
             	var board = boardTemplate({"id":data.boardId, "input-value":data.boardName})
 
