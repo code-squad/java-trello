@@ -34,52 +34,52 @@ public class ApiBoardsAcceptanceTest {
 	@Test
 	public void showBaord() {
 		given()
-		.auth()
-		.preemptive()
-		.basic("hue@korea.kr","password")
+			.auth()
+			.preemptive()
+			.basic("hue@korea.kr","password")
 		.when()
-		.get("/api/boards")
+			.get("/api/boards")
 		.then()
-		.statusCode(HttpStatus.OK.value())
-		.extract().as(Set.class);		
+			.statusCode(HttpStatus.OK.value())
+			.extract().as(Set.class);		
 	}
 	
 	@Test
 	public void showBaord_no_login() {
 		given()
 		.when()
-		.get("/api/boards")
+			.get("/api/boards")
 		.then()
-		.statusCode(HttpStatus.FORBIDDEN.value());
+			.statusCode(HttpStatus.FORBIDDEN.value());
 	}
 
 	@Test
 	public void createBoard() {
 		Board boardDto = new Board("newBoard");
 		given()
-		.auth()
-		.preemptive()
-		.basic("hue@korea.kr","password")
-		.contentType(ContentType.JSON)
-		.body(boardDto)
+			.auth()
+			.preemptive()
+			.basic("hue@korea.kr","password")
+			.contentType(ContentType.JSON)
+			.body(boardDto)
 		.when()
-		.post("/api/boards")
+			.post("/api/boards")
 		.then()
-		.statusCode(HttpStatus.CREATED.value())
-		.extract().as(Board.class);
+			.statusCode(HttpStatus.CREATED.value())
+			.extract().as(Board.class);
 		
 		//두개 이상 만들어도 문제 없는지 확인
 		given()
-		.auth()
-		.preemptive()
-		.basic("hue@korea.kr","password")
-		.contentType(ContentType.JSON)
-		.body(boardDto)
+			.auth()
+			.preemptive()
+			.basic("hue@korea.kr","password")
+			.contentType(ContentType.JSON)
+			.body(boardDto)
 		.when()
-		.post("/api/boards")
+			.post("/api/boards")
 		.then()
-		.statusCode(HttpStatus.CREATED.value())
-		.extract().as(Board.class);		
+			.statusCode(HttpStatus.CREATED.value())
+			.extract().as(Board.class);		
 	}
 	
 	@Test
@@ -88,9 +88,9 @@ public class ApiBoardsAcceptanceTest {
 		given()
 			.contentType(ContentType.JSON)
 			.body(boardDto)
-			.when()
+		.when()
 			.post("/api/boards")
-			.then()
+		.then()
 			.statusCode(HttpStatus.FORBIDDEN.value());
 	}
 }

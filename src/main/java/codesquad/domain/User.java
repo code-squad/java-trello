@@ -45,8 +45,8 @@ public class User {
 
 	@ManyToMany
 	@OrderBy("id ASC")
-	@JoinTable(name = "board_list",
-	joinColumns = @JoinColumn(name = "USER_ID"),
+	@JoinTable(name = "board_list", 
+	joinColumns = @JoinColumn(name = "USER_ID"), 
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID"))
 	private List<Board> boardList = new ArrayList<>();
 

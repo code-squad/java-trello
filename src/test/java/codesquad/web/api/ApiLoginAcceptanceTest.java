@@ -32,9 +32,9 @@ public class ApiLoginAcceptanceTest {
 		given()
 			.contentType(ContentType.JSON)
 			.body(newUser)
-			.when()
+		.when()
 			.post("/api/login")
-			.then()
+		.then()
 			.statusCode(HttpStatus.OK.value());
 	}
 
@@ -44,8 +44,9 @@ public class ApiLoginAcceptanceTest {
 		given()
 			.contentType(ContentType.JSON)
 			.body(newUser)
-			.when()
-			.post("/api/login").then()
+		.when()
+			.post("/api/login")
+		.then()
 			.statusCode(HttpStatus.UNAUTHORIZED.value());
 	}
 
@@ -55,8 +56,9 @@ public class ApiLoginAcceptanceTest {
 		given()
 			.contentType(ContentType.JSON)
 			.body(newUser)
-			.when()
-			.post("/api/login").then()
+		.when()
+			.post("/api/login")
+		.then()
 			.statusCode(HttpStatus.UNAUTHORIZED.value());
 	}
 

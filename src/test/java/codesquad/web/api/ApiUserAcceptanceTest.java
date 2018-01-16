@@ -33,9 +33,9 @@ public class ApiUserAcceptanceTest {
 		given()
 			.contentType(ContentType.JSON)
 			.body(newUser)
-			.when()
+		.when()
 			.post("/api/users")
-			.then()
+		.then()
 			.statusCode(HttpStatus.OK.value());
 	}
 	
@@ -45,9 +45,9 @@ public class ApiUserAcceptanceTest {
 		given()
 			.contentType(ContentType.JSON)
 			.body(newUser)
-			.when()
+		.when()
 			.post("/api/users")
-			.then()
+		.then()
 			.statusCode(HttpStatus.FORBIDDEN.value());
 	}
 	

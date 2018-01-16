@@ -20,25 +20,20 @@ public class UserService {
 	private static final Logger log = LoggerFactory.getLogger(UserService.class);
 	@Resource(name = "userRepository")
 	private UserRepository userRepository;
-	
+
 	public User getDbUser(User user) {
 		return userRepository.getOne(user.getId());
 	}
 
 	public void create(User user) {
-		Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
-		if (optionalUser.isPresent()) {
+		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
 			throw new AlreadyExistedUserException();
 		}
 		userRepository.save(user);
 	}
 
 	public User login(User user) {
-		Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
-		if (!optionalUser.isPresent()) {
-			throw new UnAuthenticationException();
-		}
-		User loginUser = optionalUser.get();
+		User loginUser = userRepository.findByEmail(user.getEmail()).orElseThrow(UnAuthenticationException::new);
 		if (!loginUser.matchPassword(user.getPassword())) {
 			throw new UnAuthenticationException();
 		}
