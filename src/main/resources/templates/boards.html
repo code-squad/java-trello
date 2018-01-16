@@ -12,7 +12,9 @@
       <div class="title">My Boards</div>
 
       <ul class="board-list">
-        <li class="board waves-effect waves-light btn z-depth-1">Default board</li>
+		{{#boards}}
+        <li class="board waves-effect waves-light btn z-depth-1" id="{{boardId}}">{{boardName}}</li>
+      	{{/boards}}
       </ul>
 
       <a class="btn-floating btn-large waves-effect waves-light cyan accent-4 add-board-btn">
@@ -38,6 +40,7 @@
 
       <script type="text/javascript" src="/lib/jquery-2.2.0.min.js"></script>
       <script type="text/javascript" src="/lib/materialize.min.js"></script>
+		<script type="text/javascript" src="/lib/handlebars-v4.0.5.js"></script>
       <script type="text/javascript" src="/js/template.js"></script>
       <script type="text/javascript" src="/js/boards.js"></script>
     </body>

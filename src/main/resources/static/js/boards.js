@@ -1,6 +1,8 @@
 var BOARDS = (function (window){
 
 	 'use strict';
+	 var boardTemplate = Handlebars.compile(Template.board);
+
 
 	function init(){
 
@@ -27,11 +29,10 @@ var BOARDS = (function (window){
 			return;
 		}
 		var data = {
-				'userId' : 1,
 				'boardName' : $('.board-name').val()
 			};
 
-		  //위에서 만든 오브젝트를 json 타입으로 바꾼다.
+		  // 위에서 만든 오브젝트를 json 타입으로 바꾼다.
 			var json = JSON.stringify(data);
 			var url = $(".add-board-form").attr("action");
 		 $.ajax({
@@ -40,13 +41,13 @@ var BOARDS = (function (window){
 			data: json,
 			dataType: 'json',
 			contentType: 'application/json'
-		 }).done(function(){
-
+		 }).done(function(data){
             $(".warning").css("display","none");
-            var str = Template.board.replace(/\{\{input-value\}\}/gi,boardName);
+            	var board = boardTemplate({"id":data.boardId, "input-value":data.boardName})
+
             $(".board-name").val("");
             $("#modal").modal("close");
-            $(".board-list").append(str);
+            $(".board-list").append(board);
 
 		 }).fail(function(){
         

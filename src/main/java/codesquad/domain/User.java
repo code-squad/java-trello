@@ -1,6 +1,7 @@
 package codesquad.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -18,15 +20,14 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 public class User {
 	private static final Logger log = LoggerFactory.getLogger(User.class);
-    public static final GuestUser GUEST_USER = new GuestUser();
-	
+	public static final GuestUser GUEST_USER = new GuestUser();
+
 	@Id
 	@GeneratedValue
-	@Column(name="USER_ID")
+	@Column(name = "USER_ID")
 	private long id;
 
 	@Size(min = 3, max = 20)
@@ -42,14 +43,18 @@ public class User {
 	@Size(min = 6, max = 50)
 	@Column(unique = true, nullable = false, length = 50)
 	private String email;
-	
+
 	@ManyToMany
-	@JoinTable(name = "USER_MEMBERS")
-	private List<Members> membersList = new ArrayList<>();
+	@OrderBy("id DESC")
+	@JoinTable(name = "board_list",
+	joinColumns = @JoinColumn(name = "USER_ID"),
+	inverseJoinColumns = @JoinColumn(name = "BOARD_ID"))
+	private List<Board> boardList = new ArrayList<>();
 
 	public User() {
+		this("", "");
 	}
-	
+
 	public User(String email, String password) {
 		this("", password, email);
 	}
@@ -69,26 +74,23 @@ public class User {
 		return password.equals(this.password);
 	}
 
-	public void addMembers(Members members) {
-		log.error("members : {}", members);
-		log.error("add members before");
-		membersList.add(members);
-		log.error("add members after");
+	public void addBoard(Board board) {
+		boardList.add(board);
 	}
-	
-    @JsonIgnore
-    public boolean isGuestUser() {
-        return false;
-    }
+
+	@JsonIgnore
+	public boolean isGuestUser() {
+		return false;
+	}
 
 	private static class GuestUser extends User {
-        @Override
-        public boolean isGuestUser() {
-            return true;
-        }
-    }
-	
-    public long getId() {
+		@Override
+		public boolean isGuestUser() {
+			return true;
+		}
+	}
+
+	public long getId() {
 		return id;
 	}
 
@@ -120,13 +122,13 @@ public class User {
 		this.email = email;
 	}
 
-	public List<Members> getMembersList() {
-		return membersList;
+	public List<Board> getBoardList() {
+		return boardList;
 	}
 
-//	public void setMemberList(List<Member> memberList) {
-//		this.memberList = memberList;
-//	}
+	public void setBoardList(List<Board> boardList) {
+		this.boardList = boardList;
+	}
 
 	@Override
 	public int hashCode() {
@@ -161,8 +163,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", MembersList="
-				+ membersList + "]";
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email;
 	}
-	
+
 }

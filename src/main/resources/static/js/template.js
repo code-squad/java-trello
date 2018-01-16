@@ -1,6 +1,6 @@
 var Template = {
 
-  board : "<li class='board waves-effect waves-light btn'>" +
+  board : "<li class='board waves-effect waves-light btn' id='{{id}}'>" +
                     "{{input-value}}" +
           "</li>",
 

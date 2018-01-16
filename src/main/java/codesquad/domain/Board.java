@@ -1,46 +1,70 @@
 package codesquad.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import codesquad.dto.BoardDto;
 
 @Entity
 public class Board {
 	@Id
 	@GeneratedValue
-	@Column(name="BOARD_ID")
+	@Column(name = "BOARD_ID")
 	private long id;
-	@OneToOne
-	private Members members;
 	@Column(nullable = false)
-	private String boardName;
+	private String name;
+	@ManyToMany(mappedBy = "boardList")
+	private List<User> users = new ArrayList<>();
 	
-	public Board(String boardName, long membersId) {
-		this.boardName = boardName;
+	public Board() {
 	}
-	public Board(String boardName, Members members) {
-		this.boardName = boardName;
-		this.members = members;
+
+	public Board(String name, User user) {
+		this.name = name;
+//		users.add(user);
+		user.addBoard(this);
 	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Members getMembers() {
-		return members;
+
+	public String getName() {
+		return name;
 	}
-	public void setMembers(Members members) {
-		this.members = members;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getBoardName() {
-		return boardName;
+
+	public void addUser(User user) {
+		users.add(user);
 	}
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
+
+	public List<User> getUsers() {
+		return users;
 	}
-	
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public BoardDto toBoardDto() {
+		return new BoardDto(id, name);
+	}
+
 }

@@ -2,6 +2,8 @@ package codesquad.web.api;
 
 import static io.restassured.RestAssured.given;
 
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import codesquad.dto.BoardsDto;
+import codesquad.domain.Board;
+import codesquad.dto.BoardDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
@@ -28,32 +31,67 @@ public class ApiBoardsAcceptanceTest {
 	public void setup() {
 		RestAssured.port = serverPort;
 	}
-	//auth(). preemptive().basic("username", "password") 
+	
+	@Test
+	public void showBaord() {
+		given()
+		.auth()
+		.preemptive()
+		.basic("hue@korea.kr","password")
+		.when()
+		.get("/api/boards")
+		.then()
+		.statusCode(HttpStatus.OK.value())
+		.extract().as(Set.class);		
+	}
+	
+	@Test
+	public void showBaord_no_login() {
+		given()
+		.when()
+		.get("/api/boards")
+		.then()
+		.statusCode(HttpStatus.FORBIDDEN.value());
+	}
+
 	@Test
 	public void createBoard() {
-		BoardsDto boardsDto = new BoardsDto("newBoard");
+		BoardDto boardDto = new BoardDto("newBoard");
 		given()
-			.auth()
-			.preemptive()
-			.basic("hue@korea.kr","password")
+		.auth()
+		.preemptive()
+		.basic("hue@korea.kr","password")
+		.contentType(ContentType.JSON)
+		.body(boardDto)
+		.when()
+		.post("/api/boards")
+		.then()
+		.statusCode(HttpStatus.CREATED.value())
+		.extract().as(BoardDto.class);
+		
+		//두개 이상 만들어도 문제 없는지 확인
+		given()
+		.auth()
+		.preemptive()
+		.basic("hue@korea.kr","password")
+		.contentType(ContentType.JSON)
+		.body(boardDto)
+		.when()
+		.post("/api/boards")
+		.then()
+		.statusCode(HttpStatus.CREATED.value())
+		.extract().as(BoardDto.class);		
+	}
+	
+	@Test
+	public void createBoard_no_login() {
+		BoardDto boardDto = new BoardDto("newBoard");
+		given()
 			.contentType(ContentType.JSON)
-			.body(boardsDto)
+			.body(boardDto)
 			.when()
 			.post("/api/boards")
 			.then()
-			.statusCode(HttpStatus.CREATED.value())
-			.extract().as(BoardsDto.class);		
+			.statusCode(HttpStatus.FORBIDDEN.value());
 	}
-	//	@Test
-//	public void createBoard() {
-//		BoardsDto boardsDto = new BoardsDto("newBoard");
-//		given()
-//			.contentType(ContentType.JSON)
-//			.body(boardsDto)
-//			.when()
-//			.post("/api/boards")
-//			.then()
-//			.statusCode(HttpStatus.CREATED.value())
-//			.extract().as(BoardsDto.class);		
-//	}
 }
