@@ -1,45 +1,19 @@
 package codesquad.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
 @Entity
-public class Board {
+public class Deck {
 	@Id
 	@GeneratedValue
-	@Column(name = "BOARD_ID")
+	@Column(name = "DECK_ID")
 	private long id;
 	
 	@Column(nullable = false)
 	private String name;
-	
-	@ManyToMany(mappedBy = "boardList")
-	@OrderBy("id ASC")
-	private List<User> users = new ArrayList<>();
-	
-	@OneToMany
-	private List<Deck> decks = new ArrayList<>();
-
-	public Board() {
-		this("default-board");
-	}
-
-	public Board(String name) {
-		this(0L, name);
-	}
-
-	public Board(long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
 
 	public long getId() {
 		return id;
@@ -57,18 +31,6 @@ public class Board {
 		this.name = name;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-	
-	public void addDeck(Deck deck) {
-		decks.add(deck);
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,7 +48,7 @@ public class Board {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Board other = (Board) obj;
+		Deck other = (Deck) obj;
 		if (id != other.id)
 			return false;
 		if (name == null) {
@@ -96,10 +58,6 @@ public class Board {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Board [id=" + id + ", name=" + name + "]";
-	}
-
+	
+	
 }

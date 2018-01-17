@@ -25,7 +25,7 @@ import codesquad.service.UserService;
 @RequestMapping("/api/boards")
 public class ApiBoardsController {
 	private static final Logger log = LoggerFactory.getLogger(ApiBoardsController.class);
-	@Resource(name = "boardsService")
+	@Resource(name = "boardService")
 	private BoardService boardService;
 	@Resource(name = "userService")
 	private UserService userService;

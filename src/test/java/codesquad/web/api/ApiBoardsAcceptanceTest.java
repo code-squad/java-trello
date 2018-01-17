@@ -79,7 +79,7 @@ public class ApiBoardsAcceptanceTest {
 			.post("/api/boards")
 		.then()
 			.statusCode(HttpStatus.CREATED.value())
-			.extract().as(Board.class);		
+			.extract().as(Board.class);
 	}
 	
 	@Test
