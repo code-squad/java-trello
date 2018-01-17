@@ -22,4 +22,8 @@ public class BoardService {
 		board.addDeck(dbDeck);
 		boardRepository.save(board);
 	}
+
+	public Board getBoard(long bId) {
+		return boardRepository.getOne(bId);
+	}
 }
