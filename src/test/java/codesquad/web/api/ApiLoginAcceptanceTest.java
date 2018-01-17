@@ -12,11 +12,9 @@ import codesquad.dto.UserDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import static io.restassured.RestAssured.given;
-import lombok.extern.java.Log;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Log
 public class ApiLoginAcceptanceTest {
 	@Value("${local.server.port}")
 	private int serverPort;

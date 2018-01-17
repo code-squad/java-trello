@@ -10,13 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import codesquad.dto.UserDto;
+import codesquad.domain.Card;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ApiUserAcceptanceTest {
+public class ApiCardAcceptanceTest {
 	@Value("${local.server.port}")
 	private int serverPort;
 
@@ -26,27 +26,16 @@ public class ApiUserAcceptanceTest {
 	}
 
 	@Test
-	public void createSuccess() throws Exception {
-		UserDto newUser = new UserDto("testUser", "password", "testUser@korea.kr");
+	public void create() {
+		Card card = new Card();
+		card.setName("newCard");
 		given()
 			.contentType(ContentType.JSON)
-			.body(newUser)
+			.body(card)
 		.when()
-			.post("/api/users")
+			.post("/api/card/1")
 		.then()
-			.statusCode(HttpStatus.OK.value());
-	}
-	
-	@Test
-	public void createAlreadyExistedUser() throws Exception {
-		UserDto newUser = new UserDto("testUser", "password", "hue@korea.kr");
-		given()
-			.contentType(ContentType.JSON)
-			.body(newUser)
-		.when()
-			.post("/api/users")
-		.then()
-			.statusCode(HttpStatus.FORBIDDEN.value());
-	}
-	
+			.statusCode(HttpStatus.CREATED.value())
+			.extract().as(Card.class);		
+		}
 }

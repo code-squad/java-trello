@@ -2,7 +2,6 @@ package codesquad.web.api;
 
 import static io.restassured.RestAssured.given;
 
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;

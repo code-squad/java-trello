@@ -37,15 +37,20 @@
         <div class="deck-header">
           <textarea class="deck-header-name" value="First Todo">{{name}}</textarea>
         </div>
-
         <div class="deck-cards">
+        	{{#cards}}
+        	<div class='deck-card'>
+				<div class='deck-card-detail'>
+					<a class='deck-card-title modal-trigger modalLink' dir='auto' href='#'>{{name}}</a>
+				</div>
+			</div>
+			{{/cards}}
         </div>
-
         <div class="card-composer">
           <div class="add-card-form">
             <textarea class="card-title"></textarea>
             <div class=btn-area>
-              <button class="btn waves-effect waves-light save-card">save</button>
+              <button class="btn waves-effect waves-light save-card" id="{{id}}">save</button>
               <button class="btn waves-effect waves-light cancel-card">cancel</button>
             </div>
           </div>

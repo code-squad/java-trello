@@ -71,26 +71,35 @@ var BOARD = (function (window){
 
 	function saveCard(e){
 
-        var cardTitle = $(e.target).parents(".add-card-form").find(".card-title").val();
-
+       var cardTitle = $(e.target).parents(".add-card-form").find(".card-title").val();
+       var id = $(this).attr("id");
 		if(cardTitle == "") {
 			$("#warning-modal").modal("open");
 			return;
 		}
+		var data = {
+				'name' : cardTitle
+			};
+		var json = JSON.stringify(data);
+		var url = "/api/card/" + id;
 
-        // $.ajax({
-        //
-        // }).done(function(){
+		$.ajax({
+			type: 'post',
+			url: url,
+			data: json,
+			dataType: 'json',
+			contentType: 'application/json'
+		}).done(function(data){
 
 			$(".add-card-form").css('display', 'none');
-			var card = cardTemplate({"value":cardTitle});
+			var card = cardTemplate({"value":data.name});
 			var $deckWrapper = $(e.target).closest(".deck-wrapper");
 			$deckWrapper.find(".deck-cards").append(card);
 			$(e.target).parents(".add-card-form").find(".card-title").val("");
 			$(e.target).parents(".card-composer").find("a.add-card-btn").css('display', 'block');
-        // }).fail(function(){
-        //
-        // });
+		}).fail(function(){
+ 
+		});
 
     }
 
@@ -131,12 +140,6 @@ var BOARD = (function (window){
 		dataType: 'json',
 		contentType: 'application/json'
 	 }).done(function(data){
-//        $(".warning").css("display","none");
-//        	var board = boardTemplate({"id":data.id, "input-value":data.name});
-//
-//        $(".board-name").val("");
-//        $("#modal").modal("close");
-//        $(".board-list").append(board);
 		$(".add-deck-form").css('display','none');
 		var deck = deckTemplate({"value":data.name})
 		$(".add-deck-area").before(deck);
@@ -144,13 +147,6 @@ var BOARD = (function (window){
 		$(".add-deck-btn").css('display','block');
 	 }).fail(function(){
 	 });		
-
-
-
-        // }).fail(function(){
-        //
-        // });
-
 
 		}
 
