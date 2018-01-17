@@ -117,16 +117,35 @@ var BOARD = (function (window){
 			$("#warning-modal").modal('open');
 			return;
 		}
+		
+		var data = {
+				'name' : deckTitle
+			};
+		var json = JSON.stringify(data);
+		var url = $(".add-deck-form").attr("action");
+		
+		$.ajax({
+		type: 'post',
+		url: url,
+		data: json,
+		dataType: 'json',
+		contentType: 'application/json'
+	 }).done(function(data){
+//        $(".warning").css("display","none");
+//        	var board = boardTemplate({"id":data.id, "input-value":data.name});
+//
+//        $(".board-name").val("");
+//        $("#modal").modal("close");
+//        $(".board-list").append(board);
+		$(".add-deck-form").css('display','none');
+		var deck = deckTemplate({"value":data.name})
+		$(".add-deck-area").before(deck);
+		$("#add-deck").val("");
+		$(".add-deck-btn").css('display','block');
+	 }).fail(function(){
+	 });		
 
-        // $.ajax({
-        //
-        // }).done(function(){
 
-			$(".add-deck-form").css('display','none');
-			var deck = deckTemplate({"value":deckTitle})
-			$(".add-deck-area").before(deck);
-			$("#add-deck").val("");
-			$(".add-deck-btn").css('display','block');
 
         // }).fail(function(){
         //

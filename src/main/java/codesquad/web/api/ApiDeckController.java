@@ -25,7 +25,6 @@ public class ApiDeckController {
 	
 	@PostMapping("/{bId}")
 	public ResponseEntity<Deck> create(@PathVariable long bId, @RequestBody Deck deck){
-		System.out.println("here here");
 		Deck dbDeck = deckRepository.save(deck);
 		boardService.addDeck(bId, dbDeck);
 		HttpHeaders headers = new HttpHeaders();

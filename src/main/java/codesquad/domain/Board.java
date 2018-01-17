@@ -40,6 +40,10 @@ public class Board {
 		this.id = id;
 		this.name = name;
 	}
+	
+	public void addDeck(Deck deck) {
+		decks.add(deck);
+	}
 
 	public long getId() {
 		return id;
@@ -65,8 +69,8 @@ public class Board {
 		this.users = users;
 	}
 	
-	public void addDeck(Deck deck) {
-		decks.add(deck);
+	public List<Deck> getDecks(){
+		return decks;
 	}
 	
 	@Override

@@ -16,9 +16,10 @@ public class BoardController {
 	@Resource(name="boardService")
 	private BoardService boardService;
 	
-	@GetMapping("/{bId}")
-	public String board(@PathVariable long bId,Model model) {
-		model.addAttribute("board", boardService.getBoard(bId));
+	@GetMapping("/{boardId}")
+	public String board(@PathVariable long boardId,Model model) {
+		model.addAttribute("boardId",boardId);
+		model.addAttribute("decks", boardService.getDecks(boardId));
 		return "/board";
 	}
 }

@@ -30,11 +30,12 @@
   </div>
 
   <div id="board-canvas" class="deck-sortable">
+	{{#decks}}
     <div class="deck-wrapper">
       <div class="deck-content z-depth-1">
 
         <div class="deck-header">
-          <textarea class="deck-header-name" value="First Todo">First Todo</textarea>
+          <textarea class="deck-header-name" value="First Todo">{{name}}</textarea>
         </div>
 
         <div class="deck-cards">
@@ -50,12 +51,14 @@
           </div>
           <a class="add-card-btn" href="#">Add a Card...</a>
         </div>
+        
       </div>
     </div>
+	{{/decks}}
 
     <div class="add-deck-area">
       <button class="btn waves-effect waves-light add-deck-btn">Add a Deck</button>
-      <form class="add-deck-form z-depth-1">
+      <form class="add-deck-form z-depth-1" action="/api/deck/{{boardId}}">
         <div class="input-field col s12">
           <input id="add-deck" type="text" class="validate" placeholder="Deck's name"/>
           <div class=btn-area>

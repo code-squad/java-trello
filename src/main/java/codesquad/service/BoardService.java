@@ -1,5 +1,7 @@
 package codesquad.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -25,5 +27,10 @@ public class BoardService {
 
 	public Board getBoard(long bId) {
 		return boardRepository.getOne(bId);
+	}
+
+	public List<Deck> getDecks(long bId) {
+		Board borad = boardRepository.getOne(bId);
+		return borad.getDecks();
 	}
 }
