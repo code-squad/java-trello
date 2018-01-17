@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import codesquad.domain.Card;
-import codesquad.domain.Deck;
 import codesquad.service.CardService;
 import codesquad.service.DeckService;
 
@@ -21,15 +20,14 @@ import codesquad.service.DeckService;
 public class ApiCardController {
 	@Resource(name="deckService")
 	private DeckService deckService;
+	
 	@Resource(name="cardService")
 	private CardService cardService;
 	
 	@PostMapping("/{deckId}")
 	public ResponseEntity<Card> create(@RequestBody Card card, @PathVariable long deckId) {
-		Deck deck = deckService.getDeck(deckId);
 		card = cardService.create(card);
 		deckService.addCard(deckId, card);
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Card>(card, headers, HttpStatus.CREATED);
+		return new ResponseEntity<Card>(card, new HttpHeaders(), HttpStatus.CREATED);
 	}
 }

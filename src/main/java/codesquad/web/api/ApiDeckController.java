@@ -27,8 +27,7 @@ public class ApiDeckController {
 	public ResponseEntity<Deck> create(@PathVariable long bId, @RequestBody Deck deck){
 		Deck dbDeck = deckRepository.save(deck);
 		boardService.addDeck(bId, dbDeck);
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Deck>(dbDeck, headers, HttpStatus.CREATED);
+		return new ResponseEntity<Deck>(dbDeck, new HttpHeaders(), HttpStatus.CREATED);
 	}
 	
 }

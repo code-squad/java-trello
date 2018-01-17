@@ -34,7 +34,7 @@ public class ApiUserAcceptanceTest {
 		.when()
 			.post("/api/users")
 		.then()
-			.statusCode(HttpStatus.OK.value());
+			.statusCode(HttpStatus.CREATED.value());
 	}
 	
 	@Test

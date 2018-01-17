@@ -10,7 +10,7 @@
 	{{> header}}
 
   <div class="board-header-area">
-      <p class="board-name">Default Board</p>
+      <p class="board-name">{{board.name}}</p>
 
       <div class="member-list z-depth-1">
           <ul class="members">
@@ -30,7 +30,7 @@
   </div>
 
   <div id="board-canvas" class="deck-sortable">
-	{{#decks}}
+	{{#board.decks}}
     <div class="deck-wrapper">
       <div class="deck-content z-depth-1">
 
@@ -59,7 +59,7 @@
         
       </div>
     </div>
-	{{/decks}}
+	{{/board.decks}}
 
     <div class="add-deck-area">
       <button class="btn waves-effect waves-light add-deck-btn">Add a Deck</button>

@@ -25,8 +25,10 @@ import codesquad.service.UserService;
 @RequestMapping("/api/boards")
 public class ApiBoardsController {
 	private static final Logger log = LoggerFactory.getLogger(ApiBoardsController.class);
+	
 	@Resource(name = "boardService")
 	private BoardService boardService;
+	
 	@Resource(name = "userService")
 	private UserService userService;
 
@@ -42,7 +44,6 @@ public class ApiBoardsController {
 		User dbUser = userService.getDbUser(user);
 		Board dbBoard = boardService.create(board);
 		userService.addBoard(dbUser, board);
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Board>(dbBoard, headers, HttpStatus.CREATED);
+		return new ResponseEntity<Board>(dbBoard, new HttpHeaders(), HttpStatus.CREATED);
 	}
 }

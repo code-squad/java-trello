@@ -73,6 +73,10 @@ public class Board {
 		return decks;
 	}
 	
+	public void setDecks(List<Deck> decks) {
+		this.decks = decks;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

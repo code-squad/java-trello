@@ -1,7 +1,6 @@
 package codesquad.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.Resource;
 
@@ -18,6 +17,7 @@ import codesquad.domain.UserRepository;
 @Service("userService")
 public class UserService {
 	private static final Logger log = LoggerFactory.getLogger(UserService.class);
+	
 	@Resource(name = "userRepository")
 	private UserRepository userRepository;
 
