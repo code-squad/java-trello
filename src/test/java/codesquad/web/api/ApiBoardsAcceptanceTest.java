@@ -2,7 +2,7 @@ package codesquad.web.api;
 
 import static io.restassured.RestAssured.given;
 
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,8 +40,7 @@ public class ApiBoardsAcceptanceTest {
 		.when()
 			.get("/api/boards")
 		.then()
-			.statusCode(HttpStatus.OK.value())
-			.extract().as(Set.class);		
+			.statusCode(HttpStatus.OK.value());
 	}
 	
 	@Test

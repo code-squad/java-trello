@@ -24,10 +24,17 @@ public class BoardsAcceptanceTest {
 	private TestRestTemplate template;
 
 	@Test
-	public void board() {
-		ResponseEntity<String> response = template.getForEntity("/board", String.class);
+	public void show() {
+		ResponseEntity<String> response = template.withBasicAuth("hue@korea.kr", "password")
+															.getForEntity("/boards", String.class);
 		assertThat(response.getStatusCode(), is(HttpStatus.OK));
 		log.debug("body : {}", response.getBody());
+	}
+	
+	@Test
+	public void showNoLogin() {
+		ResponseEntity<String> response = template.getForEntity("/boards", String.class);
+		assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
 	}
 
 }

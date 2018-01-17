@@ -25,7 +25,7 @@ public class BoardAcceptanceTest {
 
 	@Test
 	public void board() {
-		ResponseEntity<String> response = template.getForEntity("/board", String.class);
+		ResponseEntity<String> response = template.getForEntity("/board/1", String.class);
 		assertThat(response.getStatusCode(), is(HttpStatus.OK));
 		log.debug("body : {}", response.getBody());
 	}
