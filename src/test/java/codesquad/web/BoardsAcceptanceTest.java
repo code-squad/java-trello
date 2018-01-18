@@ -26,14 +26,14 @@ public class BoardsAcceptanceTest {
 	@Test
 	public void show() {
 		ResponseEntity<String> response = template.withBasicAuth("hue@korea.kr", "password")
-															.getForEntity("/boards", String.class);
+															.getForEntity("/myboards", String.class);
 		assertThat(response.getStatusCode(), is(HttpStatus.OK));
 		log.debug("body : {}", response.getBody());
 	}
 	
 	@Test
 	public void showNoLogin() {
-		ResponseEntity<String> response = template.getForEntity("/boards", String.class);
+		ResponseEntity<String> response = template.getForEntity("/myboards", String.class);
 		assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
 	}
 

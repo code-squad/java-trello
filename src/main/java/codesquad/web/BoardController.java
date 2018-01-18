@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import codesquad.service.BoardService;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/boards")
 public class BoardController {
 	@Resource(name="boardService")
 	private BoardService boardService;
 	
-	@GetMapping("/{boardId}")
-	public String board(@PathVariable long boardId,Model model) {
-		model.addAttribute("board", boardService.getBoard(boardId));
+	@GetMapping("/{id}")
+	public String board(@PathVariable long id,Model model) {
+		model.addAttribute("board", boardService.getBoard(id));
 		return "/board";
 	}
 }

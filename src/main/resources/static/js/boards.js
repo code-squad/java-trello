@@ -9,7 +9,7 @@ var BOARDS = (function (window){
     	$("#modal").modal();
 		$(".board-list").on("click", ".board", function() {
 			var id = $(this).attr("id");
-			window.location.href = ("/board/" + id);
+			window.location.href = ("/boards/" + id);
 
 		});
 		$(".add-board-btn").on("click", showCreateBoardForm);

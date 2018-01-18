@@ -81,7 +81,7 @@ var BOARD = (function (window){
 				'name' : cardTitle
 			};
 		var json = JSON.stringify(data);
-		var url = "/api/card/" + id;
+		var url = "/api/decks/" + id + "/cards";
 
 		$.ajax({
 			type: 'post',

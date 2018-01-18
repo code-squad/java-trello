@@ -23,8 +23,8 @@ import codesquad.service.UserService;
 
 @RestController
 @RequestMapping("/api/boards")
-public class ApiBoardsController {
-	private static final Logger log = LoggerFactory.getLogger(ApiBoardsController.class);
+public class ApiBoardController {
+	private static final Logger log = LoggerFactory.getLogger(ApiBoardController.class);
 	
 	@Resource(name = "boardService")
 	private BoardService boardService;

@@ -16,15 +16,15 @@ import codesquad.service.CardService;
 import codesquad.service.DeckService;
 
 @RestController
-@RequestMapping("/api/card")
+@RequestMapping("/api/decks")
 public class ApiCardController {
 	@Resource(name="deckService")
 	private DeckService deckService;
-	
+
 	@Resource(name="cardService")
 	private CardService cardService;
 	
-	@PostMapping("/{deckId}")
+	@PostMapping("/{deckId}/cards")
 	public ResponseEntity<Card> create(@RequestBody Card card, @PathVariable long deckId) {
 		card = cardService.create(card);
 		deckService.addCard(deckId, card);
