@@ -2,22 +2,17 @@ package codesquad.web.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import codesquad.dto.UserDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import static io.restassured.RestAssured.given;
-import lombok.extern.java.Log;
+import support.test.AcceptanceTest;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Log
-public class ApiLoginAcceptanceTest {
+import static io.restassured.RestAssured.given;
+
+public class ApiLoginAcceptanceTest extends AcceptanceTest{
 	@Value("${local.server.port}")
 	private int serverPort;
 

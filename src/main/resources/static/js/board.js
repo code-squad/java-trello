@@ -71,26 +71,35 @@ var BOARD = (function (window){
 
 	function saveCard(e){
 
-        var cardTitle = $(e.target).parents(".add-card-form").find(".card-title").val();
-
+       var cardTitle = $(e.target).parents(".add-card-form").find(".card-title").val();
+       var id = $(this).attr("id");
 		if(cardTitle == "") {
 			$("#warning-modal").modal("open");
 			return;
 		}
+		var data = {
+				'name' : cardTitle
+			};
+		var json = JSON.stringify(data);
+		var url = "/api/decks/" + id + "/cards";
 
-        // $.ajax({
-        //
-        // }).done(function(){
+		$.ajax({
+			type: 'post',
+			url: url,
+			data: json,
+			dataType: 'json',
+			contentType: 'application/json'
+		}).done(function(data){
 
 			$(".add-card-form").css('display', 'none');
-			var card = cardTemplate({"value":cardTitle});
+			var card = cardTemplate({"value":data.name});
 			var $deckWrapper = $(e.target).closest(".deck-wrapper");
 			$deckWrapper.find(".deck-cards").append(card);
 			$(e.target).parents(".add-card-form").find(".card-title").val("");
 			$(e.target).parents(".card-composer").find("a.add-card-btn").css('display', 'block');
-        // }).fail(function(){
-        //
-        // });
+		}).fail(function(){
+ 
+		});
 
     }
 
@@ -117,21 +126,27 @@ var BOARD = (function (window){
 			$("#warning-modal").modal('open');
 			return;
 		}
-
-        // $.ajax({
-        //
-        // }).done(function(){
-
-			$(".add-deck-form").css('display','none');
-			var deck = deckTemplate({"value":deckTitle})
-			$(".add-deck-area").before(deck);
-			$("#add-deck").val("");
-			$(".add-deck-btn").css('display','block');
-
-        // }).fail(function(){
-        //
-        // });
-
+		
+		var data = {
+				'name' : deckTitle
+			};
+		var json = JSON.stringify(data);
+		var url = $(".add-deck-form").attr("action");
+		
+		$.ajax({
+		type: 'post',
+		url: url,
+		data: json,
+		dataType: 'json',
+		contentType: 'application/json'
+	 }).done(function(data){
+		$(".add-deck-form").css('display','none');
+		var deck = deckTemplate({"value":data.name})
+		$(".add-deck-area").before(deck);
+		$("#add-deck").val("");
+		$(".add-deck-btn").css('display','block');
+	 }).fail(function(){
+	 });		
 
 		}
 

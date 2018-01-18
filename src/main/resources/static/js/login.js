@@ -26,5 +26,5 @@ function onError(e) {
 }
 
 function onSuccess(data, status) {
-	location.replace("/boards");
+	location.replace("/myboards");
 }

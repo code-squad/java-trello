@@ -13,12 +13,12 @@ import codesquad.security.LoginUser;
 import codesquad.service.UserService;
 
 @Controller
-public class BoardsController {
-	private static final Logger log = LoggerFactory.getLogger(BoardsController.class);
+public class MyBoardsController {
+	private static final Logger log = LoggerFactory.getLogger(MyBoardsController.class);
 	@Resource(name = "userService")
 	private UserService userService;
 
-	@GetMapping("/boards")
+	@GetMapping("/myboards")
 	public String board(@LoginUser User user, Model model) {
 		model.addAttribute("boards", userService.getBoards(user));
 		return "/boards";

@@ -1,5 +1,7 @@
 package codesquad.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,5 +15,11 @@ public class UserController {
 	@GetMapping("/login")
 	public String loginForm() {
 		return "/login";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginedUser");
+		return "redirect:/";
 	}
 }

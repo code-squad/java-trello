@@ -7,7 +7,11 @@ var BOARDS = (function (window){
 	function init(){
 
     	$("#modal").modal();
-		$(".board-list").on("click", ".board", gotoBoard);
+		$(".board-list").on("click", ".board", function() {
+			var id = $(this).attr("id");
+			window.location.href = ("/boards/" + id);
+
+		});
 		$(".add-board-btn").on("click", showCreateBoardForm);
 		$(".add-board-form .save").on("click", createNewBoard);
 		$(".close-moadl").on("click", closeModal);
@@ -43,7 +47,7 @@ var BOARDS = (function (window){
 			contentType: 'application/json'
 		 }).done(function(data){
             $(".warning").css("display","none");
-            	var board = boardTemplate({"id":data.id, "input-value":data.name})
+            	var board = boardTemplate({"id":data.id, "input-value":data.name});
 
             $(".board-name").val("");
             $("#modal").modal("close");
@@ -55,9 +59,10 @@ var BOARDS = (function (window){
 
     }
 
-	function gotoBoard(){
-
-		window.location.href = ("board.html");
+	function gotoBoard(a){
+		console.log(this);
+		console.log(a, arguments);
+//		window.location.href = ("/board/);
 
 	}
 

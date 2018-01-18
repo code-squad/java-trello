@@ -26,8 +26,7 @@ public class ApiUserController {
 	@PostMapping("")
 	public ResponseEntity<Void> create(@RequestBody UserDto userDto){
 		userService.create(userDto.toUser());
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.OK);
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.CREATED);
 	}
 	
 }

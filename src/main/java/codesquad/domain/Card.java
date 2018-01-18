@@ -7,42 +7,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
 @Entity
-public class Board {
+public class Card {
 	@Id
 	@GeneratedValue
-	@Column(name = "BOARD_ID")
+	@Column(name = "CARD_ID")
 	private long id;
-	
+
 	@Column(nullable = false)
 	private String name;
 	
-	@ManyToMany(mappedBy = "boardList")
-	@OrderBy("id ASC")
-	private List<User> users = new ArrayList<>();
-	
 	@OneToMany
-	private List<Deck> decks = new ArrayList<>();
+	private List<Card> cards = new ArrayList<>();
 
-	public Board() {
-		this("default-board");
-	}
-
-	public Board(String name) {
-		this(0L, name);
-	}
-
-	public Board(long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-	
-	public void addDeck(Deck deck) {
-		decks.add(deck);
+	public void addCard(Card card) {
+		cards.add(card);
 	}
 
 	public long getId() {
@@ -61,26 +42,19 @@ public class Board {
 		this.name = name;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<Card> getCards() {
+		return cards;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-	
-	public List<Deck> getDecks(){
-		return decks;
-	}
-	
-	public void setDecks(List<Deck> decks) {
-		this.decks = decks;
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cards == null) ? 0 : cards.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -94,7 +68,12 @@ public class Board {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Board other = (Board) obj;
+		Card other = (Card) obj;
+		if (cards == null) {
+			if (other.cards != null)
+				return false;
+		} else if (!cards.equals(other.cards))
+			return false;
 		if (id != other.id)
 			return false;
 		if (name == null) {
@@ -104,10 +83,5 @@ public class Board {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Board [id=" + id + ", name=" + name + "]";
-	}
-
+	
 }

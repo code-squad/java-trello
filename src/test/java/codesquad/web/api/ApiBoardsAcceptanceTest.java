@@ -2,34 +2,18 @@ package codesquad.web.api;
 
 import static io.restassured.RestAssured.given;
 
-import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import codesquad.domain.Board;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import support.test.AcceptanceTest;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ApiBoardsAcceptanceTest {
+public class ApiBoardsAcceptanceTest extends AcceptanceTest{
 	private static final Logger log = LoggerFactory.getLogger(ApiBoardsAcceptanceTest.class);
-	
-	@Value("${local.server.port}")
-	private int serverPort;
-
-	@Before
-	public void setup() {
-		RestAssured.port = serverPort;
-	}
 	
 	@Test
 	public void showBaord() {
@@ -40,8 +24,7 @@ public class ApiBoardsAcceptanceTest {
 		.when()
 			.get("/api/boards")
 		.then()
-			.statusCode(HttpStatus.OK.value())
-			.extract().as(Set.class);		
+			.statusCode(HttpStatus.OK.value());
 	}
 	
 	@Test
@@ -79,7 +62,7 @@ public class ApiBoardsAcceptanceTest {
 			.post("/api/boards")
 		.then()
 			.statusCode(HttpStatus.CREATED.value())
-			.extract().as(Board.class);		
+			.extract().as(Board.class);
 	}
 	
 	@Test

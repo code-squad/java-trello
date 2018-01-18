@@ -27,8 +27,7 @@ public class ApiLoginController {
 	@PostMapping("")
 	public ResponseEntity<Void> login(@RequestBody UserDto userDto, HttpSession session) {
 		session.setAttribute("loginedUser", userService.login(userDto.toUser()));
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.OK);
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.OK);
 	}
 
 }
