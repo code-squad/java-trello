@@ -13,13 +13,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import codesquad.domain.User;
-import codesquad.service.UserService;
+import codesquad.domain.Member;
+import codesquad.service.MemberService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BasicAuthInterceptorTest {
 	@Mock
-	private UserService userService;
+	private MemberService userService;
 
 	@InjectMocks
 	private BasicAuthInterceptor basicAuthInterceptor;
@@ -29,7 +29,7 @@ public class BasicAuthInterceptorTest {
 		String email = "hue@korea.kr";
 		String password = "password";
 		MockHttpServletRequest request = basicAuthHttpRequest(email, password);
-		User loginUser = new User("name", "password", email);
+		Member loginUser = new Member("name", "password", email);
 		when(userService.login(loginUser)).thenReturn(loginUser);
 
 		basicAuthInterceptor.preHandle(request, null, null);

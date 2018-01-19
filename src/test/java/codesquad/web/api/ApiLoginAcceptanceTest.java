@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 
-import codesquad.dto.UserDto;
+import codesquad.dto.MemberDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
@@ -23,10 +23,10 @@ public class ApiLoginAcceptanceTest extends AcceptanceTest{
 
 	@Test
 	public void loginSuccess() throws Exception {
-		UserDto newUser = new UserDto("hue@korea.kr", "password");
+		MemberDto newMember = new MemberDto("hue@korea.kr", "password");
 		given()
 			.contentType(ContentType.JSON)
-			.body(newUser)
+			.body(newMember)
 		.when()
 			.post("/api/login")
 		.then()
@@ -35,10 +35,10 @@ public class ApiLoginAcceptanceTest extends AcceptanceTest{
 
 	@Test
 	public void loginEmptyEmail() throws Exception {
-		UserDto newUser = new UserDto("wwww" + "hue@korea.kr", "password");
+		MemberDto newMember = new MemberDto("wwww" + "hue@korea.kr", "password");
 		given()
 			.contentType(ContentType.JSON)
-			.body(newUser)
+			.body(newMember)
 		.when()
 			.post("/api/login")
 		.then()
@@ -47,10 +47,10 @@ public class ApiLoginAcceptanceTest extends AcceptanceTest{
 
 	@Test
 	public void loginOtherPassword() throws Exception {
-		UserDto newUser = new UserDto("hue@korea.kr", "password" + "222");
+		MemberDto newMember = new MemberDto("hue@korea.kr", "password" + "222");
 		given()
 			.contentType(ContentType.JSON)
-			.body(newUser)
+			.body(newMember)
 		.when()
 			.post("/api/login")
 		.then()

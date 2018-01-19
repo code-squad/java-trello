@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import codesquad.dto.UserDto;
-import codesquad.service.UserService;
+import codesquad.dto.MemberDto;
+import codesquad.service.MemberService;
 
 @RestController
 @RequestMapping("/api/login")
 public class ApiLoginController {
 	private static final Logger log = LoggerFactory.getLogger(ApiLoginController.class);
 
-	@Resource(name = "userService")
-	private UserService userService;
+	@Resource(name = "memberService")
+	private MemberService memberService;
 	
 	@PostMapping("")
-	public ResponseEntity<Void> login(@RequestBody UserDto userDto, HttpSession session) {
-		session.setAttribute("loginedUser", userService.login(userDto.toUser()));
+	public ResponseEntity<Void> login(@RequestBody MemberDto memberDto, HttpSession session) {
+		session.setAttribute("loginedUser", memberService.login(memberDto.toMember()));
 		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.OK);
 	}
 

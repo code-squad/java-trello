@@ -8,19 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import codesquad.domain.User;
+import codesquad.domain.Member;
 import codesquad.security.LoginUser;
-import codesquad.service.UserService;
+import codesquad.service.MemberService;
 
 @Controller
 public class MyBoardsController {
 	private static final Logger log = LoggerFactory.getLogger(MyBoardsController.class);
-	@Resource(name = "userService")
-	private UserService userService;
+	@Resource(name = "memberService")
+	private MemberService memberService;
 
 	@GetMapping("/myboards")
-	public String board(@LoginUser User user, Model model) {
-		model.addAttribute("boards", userService.getBoards(user));
+	public String board(@LoginUser Member member, Model model) {
+		model.addAttribute("boards", memberService.getBoards(member));
 		return "/boards";
 	}
 }

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
-import codesquad.domain.User;
+import codesquad.domain.Member;
 
 public class HttpSessionUtils {
     public static final String USER_SESSION_KEY = "loginedUser";
@@ -15,11 +15,11 @@ public class HttpSessionUtils {
         return loginedUser != null;
     }
 
-    public static User getUserFromSession(NativeWebRequest webRequest) {
+    public static Member getUserFromSession(NativeWebRequest webRequest) {
         if (!isLoginUser(webRequest)) {
-            return User.GUEST_USER;
+            return Member.GUEST_MEMBER;
         }
-        return (User) webRequest.getAttribute(USER_SESSION_KEY, WebRequest.SCOPE_SESSION);
+        return (Member) webRequest.getAttribute(USER_SESSION_KEY, WebRequest.SCOPE_SESSION);
     }
 
     public static boolean isLoginUser(HttpSession session) {
@@ -30,11 +30,11 @@ public class HttpSessionUtils {
         return true;
     }
 
-    public static User getUserFromSession(HttpSession session) {
+    public static Member getUserFromSession(HttpSession session) {
         if (!isLoginUser(session)) {
             return null;
         }
 
-        return (User) session.getAttribute(USER_SESSION_KEY);
+        return (Member) session.getAttribute(USER_SESSION_KEY);
     }
 }

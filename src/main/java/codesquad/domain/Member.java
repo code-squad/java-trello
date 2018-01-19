@@ -20,13 +20,13 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
-	private static final Logger log = LoggerFactory.getLogger(User.class);
-	public static final GuestUser GUEST_USER = new GuestUser();
+public class Member {
+	private static final Logger log = LoggerFactory.getLogger(Member.class);
+	public static final GuestMember GUEST_MEMBER = new GuestMember();
 
 	@Id
 	@GeneratedValue
-	@Column(name = "USER_ID")
+	@Column(name = "MEMBER_ID")
 	private long id;
 
 	@Size(min = 3, max = 20)
@@ -46,23 +46,23 @@ public class User {
 	@ManyToMany
 	@OrderBy("id ASC")
 	@JoinTable(name = "board_list", 
-	joinColumns = @JoinColumn(name = "USER_ID"), 
+	joinColumns = @JoinColumn(name = "MEMBER_ID"), 
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID"))
 	private List<Board> boardList = new ArrayList<>();
 
-	public User() {
+	public Member() {
 		this("", "");
 	}
 
-	public User(String email, String password) {
+	public Member(String email, String password) {
 		this("", password, email);
 	}
 
-	public User(String name, String password, String email) {
+	public Member(String name, String password, String email) {
 		this(0L, name, password, email);
 	}
 
-	public User(long id, String name, String password, String email) {
+	public Member(long id, String name, String password, String email) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -78,13 +78,13 @@ public class User {
 	}
 
 	@JsonIgnore
-	public boolean isGuestUser() {
+	public boolean isGuestMember() {
 		return false;
 	}
 
-	private static class GuestUser extends User {
+	private static class GuestMember extends Member {
 		@Override
-		public boolean isGuestUser() {
+		public boolean isGuestMember() {
 			return true;
 		}
 	}
@@ -146,7 +146,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Member other = (Member) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -162,7 +162,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email;
+		return "Member [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email;
 	}
 
 }

@@ -23,7 +23,7 @@ public class Board {
 	
 	@ManyToMany(mappedBy = "boardList")
 	@OrderBy("id ASC")
-	private List<User> users = new ArrayList<>();
+	private List<Member> members = new ArrayList<>();
 	
 	@OneToMany
 	private List<Deck> decks = new ArrayList<>();
@@ -61,12 +61,12 @@ public class Board {
 		this.name = name;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<Member> getMembers() {
+		return members;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setMembers(List<Member> members) {
+		this.members = members;
 	}
 	
 	public List<Deck> getDecks(){

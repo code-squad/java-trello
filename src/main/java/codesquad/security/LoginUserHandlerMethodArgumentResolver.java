@@ -7,7 +7,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import codesquad.UnAuthorizedException;
-import codesquad.domain.User;
+import codesquad.domain.Member;
 
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
@@ -18,8 +18,8 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-    	User user = HttpSessionUtils.getUserFromSession(webRequest);
-        if (!user.isGuestUser()) {
+    	Member user = HttpSessionUtils.getUserFromSession(webRequest);
+        if (!user.isGuestMember()) {
             return user;
         }
 

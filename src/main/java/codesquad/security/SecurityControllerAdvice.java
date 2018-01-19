@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import codesquad.AlreadyExistedUserException;
+import codesquad.AlreadyExistedMemberException;
 import codesquad.UnAuthenticationException;
 import codesquad.UnAuthorizedException;
 
@@ -35,7 +35,7 @@ public class SecurityControllerAdvice {
         log.debug("UnAuthenticationException is happened!");
     }
     
-	@ExceptionHandler(AlreadyExistedUserException.class)
+	@ExceptionHandler(AlreadyExistedMemberException.class)
 	@ResponseStatus(value = HttpStatus.FORBIDDEN)
 	public void alreadyExistedUser() {
 		log.debug("UnAuthenticationException is happened!");

@@ -14,7 +14,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
 import codesquad.UnAuthorizedException;
-import codesquad.domain.User;
+import codesquad.domain.Member;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginUserHandlerMethodArgumentResolverTest {
@@ -36,10 +36,10 @@ public class LoginUserHandlerMethodArgumentResolverTest {
 
     @Test
     public void loginUser_normal() throws Exception {
-        User sessionUser = new User("password", "name", "hue@korea.kr");
+        Member sessionUser = new Member("password", "name", "hue@korea.kr");
         when(request.getAttribute(HttpSessionUtils.USER_SESSION_KEY, WebRequest.SCOPE_SESSION)).thenReturn(sessionUser);
 
-        User loginUser = (User) loginUserHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
+        Member loginUser = (Member) loginUserHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
 
         assertThat(loginUser, is(sessionUser));
     }
@@ -49,7 +49,7 @@ public class LoginUserHandlerMethodArgumentResolverTest {
         when(annotedLoginUser.required()).thenReturn(true);
         when(parameter.getParameterAnnotation(LoginUser.class)).thenReturn(annotedLoginUser);
         when(request.getAttribute(HttpSessionUtils.USER_SESSION_KEY, WebRequest.SCOPE_SESSION))
-                .thenReturn(User.GUEST_USER);
+                .thenReturn(Member.GUEST_MEMBER);
 
         loginUserHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
     }
@@ -59,10 +59,10 @@ public class LoginUserHandlerMethodArgumentResolverTest {
         when(annotedLoginUser.required()).thenReturn(false);
         when(parameter.getParameterAnnotation(LoginUser.class)).thenReturn(annotedLoginUser);
         when(request.getAttribute(HttpSessionUtils.USER_SESSION_KEY, WebRequest.SCOPE_SESSION))
-                .thenReturn(User.GUEST_USER);
+                .thenReturn(Member.GUEST_MEMBER);
 
-        User guestUser = (User) loginUserHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
-        assertThat(guestUser, is(User.GUEST_USER));
+        Member guestUser = (Member) loginUserHandlerMethodArgumentResolver.resolveArgument(parameter, null, request, null);
+        assertThat(guestUser, is(Member.GUEST_MEMBER));
     }
 
     @Test
