@@ -19,11 +19,10 @@ public class MyBoardsController {
 	@Resource(name = "memberService")
 	private MemberService memberService;
 
-//	@GetMapping("/myboards")
-//	public String board(@LoginUser Member member, Model model) {
-//		model.addAttribute("boards", memberService.getBoards(member));
-//		return "/boards";
-//	}
-//	
-
+	@GetMapping("/myboards")
+	public String board(Authentication authentication, Model model) {
+		log.debug("requested user's username is : {}" , authentication.getName());
+		model.addAttribute("boards", memberService.getBoardsByEmail(authentication.getName()));
+		return "/boards";
+	}
 }

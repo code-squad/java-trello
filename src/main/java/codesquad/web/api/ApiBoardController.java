@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,8 +41,8 @@ public class ApiBoardController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<Board> createBoard(@LoginUser Member member, @RequestBody Board board) {
-		Member dbMember = memberService.getDbMember(member);
+	public ResponseEntity<Board> createBoard(Authentication authentication, @RequestBody Board board) {
+		Member dbMember = memberService.getDbMemberByEmail(authentication.getName());
 		Board dbBoard = boardService.create(board);
 		memberService.addBoard(dbMember, board);
 		return new ResponseEntity<Board>(dbBoard, new HttpHeaders(), HttpStatus.CREATED);

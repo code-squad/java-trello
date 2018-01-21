@@ -50,4 +50,13 @@ public class MemberService {
 		return member.getBoardList();
 	}
 
+	public Object getBoardsByEmail(String email) {
+		Member member = memberRepository.findByEmail(email).orElseThrow(UnAuthenticationException::new);
+		return member.getBoardList();
+	}
+
+	public Member getDbMemberByEmail(String email) {
+		return memberRepository.findByEmail(email).orElseThrow(UnAuthenticationException::new);
+	}
+
 }

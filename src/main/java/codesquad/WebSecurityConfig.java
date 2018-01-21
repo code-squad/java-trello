@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.antMatchers("/boards/**", "/myboards", "/api/boards", "api/login**", "/api/decks/**", "api/boards/**", "/api/boards/**", "/api/users**")
 			.hasRole("USER");
-		http.formLogin().loginPage("/login").successForwardUrl("/boards");
+		http.formLogin().loginPage("/login");
 		
 		http.logout().logoutUrl("/logout").invalidateHttpSession(true);
 		
