@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import codesquad.UnAuthenticationException;
 import codesquad.domain.Member;
-import codesquad.domain.MemberRepository;
+import codesquad.domain.repository.MemberRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MemberServiceTest {

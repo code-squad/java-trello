@@ -12,7 +12,7 @@ import codesquad.AlreadyExistedMemberException;
 import codesquad.UnAuthenticationException;
 import codesquad.domain.Board;
 import codesquad.domain.Member;
-import codesquad.domain.MemberRepository;
+import codesquad.domain.repository.MemberRepository;
 
 @Service("memberService")
 public class MemberService {

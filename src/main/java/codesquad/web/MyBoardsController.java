@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,11 @@ public class MyBoardsController {
 	@Resource(name = "memberService")
 	private MemberService memberService;
 
-	@GetMapping("/myboards")
-	public String board(@LoginUser Member member, Model model) {
-		model.addAttribute("boards", memberService.getBoards(member));
-		return "/boards";
-	}
+//	@GetMapping("/myboards")
+//	public String board(@LoginUser Member member, Model model) {
+//		model.addAttribute("boards", memberService.getBoards(member));
+//		return "/boards";
+//	}
+//	
+
 }

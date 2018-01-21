@@ -1,6 +1,9 @@
 INSERT INTO member (member_id, name, password, email) values (1, 'hue', 'password', 'hue@korea.kr');
 INSERT INTO member (member_id, name, password, email) values (2, 'java', 'password', 'java@korea.kr');
 
+INSERT INTO member_roles (id, role_name, member) values ( 1, 'USER', 1);
+INSERT INTO member_roles (id, role_name, member) values ( 2, 'USER', 2);
+
 INSERT INTO board (board_id, name) values (1, 'first board');
 INSERT INTO board (board_id, name) values (2, 'second board');
 

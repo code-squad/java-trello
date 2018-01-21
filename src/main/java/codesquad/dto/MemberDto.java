@@ -7,8 +7,9 @@ import codesquad.domain.Member;
 public class MemberDto {
 	@Size(min = 3, max = 20)
 	private String name;
-	@Size(min = 6, max = 20)
+	
 	private String password;
+	
 	@Size(min = 6, max = 50)
 	private String email;
 
@@ -28,7 +29,7 @@ public class MemberDto {
 	public Member toMember() {
 		return new Member(name, password, email);
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -53,4 +54,9 @@ public class MemberDto {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "MemberDto [username=" + name + ", password=" + password + ", email=" + email + "]";
+	}
+	
 }

@@ -20,7 +20,7 @@ import codesquad.service.MemberService;
 @RequestMapping("/api/login")
 public class ApiLoginController {
 	private static final Logger log = LoggerFactory.getLogger(ApiLoginController.class);
-
+	
 	@Resource(name = "memberService")
 	private MemberService memberService;
 	
