@@ -47,10 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.antMatchers("/boards/**", "/myboards", "/api/boards", "api/login**", "/api/decks/**", "api/boards/**", "/api/boards/**", "/api/users**")
 			.hasRole("USER");
-		http.formLogin().loginPage("/login");
+		http.formLogin().loginPage("/login").defaultSuccessUrl("/myboards").failureUrl("/login");
 		
-		http.logout().logoutUrl("/logout").invalidateHttpSession(true);
-		
+		http.logout().logoutUrl("/logout").invalidateHttpSession(true);	
 	}
 	
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{

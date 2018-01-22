@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 
 import codesquad.dto.MemberDto;
 import io.restassured.RestAssured;
+import io.restassured.authentication.FormAuthConfig;
 import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
 
@@ -47,12 +48,32 @@ public class ApiLoginAcceptanceTest extends AcceptanceTest{
 
 	@Test
 	public void loginOtherPassword() throws Exception {
-		MemberDto newMember = new MemberDto("hue@korea.kr", "password" + "222");
+//		content-type: application/x-www-form-urlencoded
+//		MemberDto newMember = new MemberDto("hue@korea.kr", "password" + "222");
+
 		given()
-			.contentType(ContentType.JSON)
-			.body(newMember)
+			.auth()
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
+//			.contentType(ContentType.TEXT)
+//			.body(newMember)
 		.when()
-			.post("/api/login")
+			.post("/login")
+		.then()
+			.statusCode(HttpStatus.UNAUTHORIZED.value());
+	}
+	
+	@Test
+	public void loginEmptyEmail2() throws Exception {
+//		content-type: application/x-www-form-urlencoded
+//		MemberDto newMember = new MemberDto("hue@korea.kr", "password" + "222");
+
+		given()
+			.auth()
+			.form("hue@korea.kr" , "password", new FormAuthConfig("/login", "username", "password"))
+//			.contentType(ContentType.TEXT)
+//			.body(newMember)
+		.when()
+			.post("/login")
 		.then()
 			.statusCode(HttpStatus.UNAUTHORIZED.value());
 	}

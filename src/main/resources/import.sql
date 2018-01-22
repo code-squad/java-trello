@@ -1,5 +1,5 @@
-INSERT INTO member (member_id, name, password, email) values (1, 'hue', 'password', 'hue@korea.kr');
-INSERT INTO member (member_id, name, password, email) values (2, 'java', 'password', 'java@korea.kr');
+INSERT INTO member (member_id, name, password, email) values (1, 'hue', '$2a$10$Q.0rL09Y9aGSITtvaS0JG.dMc84kaeqUsEJpAf55PhzbCp8lWbgB2', 'hue@korea.kr');
+INSERT INTO member (member_id, name, password, email) values (2, 'java', '$2a$10$Q.0rL09Y9aGSITtvaS0JG.dMc84kaeqUsEJpAf55PhzbCp8lWbgB2', 'java@korea.kr');
 
 INSERT INTO member_roles (id, role_name, member) values ( 1, 'USER', 1);
 INSERT INTO member_roles (id, role_name, member) values ( 2, 'USER', 2);

@@ -141,7 +141,7 @@ var BOARD = (function (window){
 		contentType: 'application/json'
 	 }).done(function(data){
 		$(".add-deck-form").css('display','none');
-		var deck = deckTemplate({"value":data.name})
+		var deck = deckTemplate({"value":data.name, "id":data.id})
 		$(".add-deck-area").before(deck);
 		$("#add-deck").val("");
 		$(".add-deck-btn").css('display','block');

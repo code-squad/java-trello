@@ -35,9 +35,10 @@ public class ApiBoardController {
 
 	// 현재 미사용. ajax기반으로 만들게 되면 사용 가능 할듯
 	@GetMapping("")
-	public ResponseEntity<List<Board>> show(@LoginUser Member member) {
+	public ResponseEntity<List<Board>> show(Authentication authentication) {
+		Member dbMember = memberService.getDbMemberByEmail(authentication.getName());
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<List<Board>>(memberService.getBoards(member), headers, HttpStatus.OK);
+		return new ResponseEntity<List<Board>>(memberService.getBoards(dbMember), headers, HttpStatus.OK);
 	}
 
 	@PostMapping("")

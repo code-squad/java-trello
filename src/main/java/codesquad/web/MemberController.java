@@ -14,7 +14,7 @@ public class MemberController {
 
 	@GetMapping("/login")
 	public String loginForm() {
-		return "/securitylogin";
+		return "/login";
 	}
 	
 	@GetMapping("/securitylogin")
