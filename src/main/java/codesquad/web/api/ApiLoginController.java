@@ -3,8 +3,6 @@ package codesquad.web.api;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,6 @@ import codesquad.service.MemberService;
 @RestController
 @RequestMapping("/api/login")
 public class ApiLoginController {
-	private static final Logger log = LoggerFactory.getLogger(ApiLoginController.class);
 	
 	@Resource(name = "memberService")
 	private MemberService memberService;

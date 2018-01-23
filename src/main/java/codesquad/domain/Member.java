@@ -17,14 +17,11 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Member {
-	private static final Logger log = LoggerFactory.getLogger(Member.class);
 	public static final GuestMember GUEST_MEMBER = new GuestMember();
 
 	@Id

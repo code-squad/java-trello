@@ -10,27 +10,35 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import codesquad.security.BasicAuthInterceptor;
 import codesquad.security.LoginUserHandlerMethodArgumentResolver;
+import codesquad.security.SecurityLoginCheckInterceptor;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    @Bean
-    public BasicAuthInterceptor basicAuthInterceptor() {
-        return new BasicAuthInterceptor();
-    }
+	@Bean
+	public BasicAuthInterceptor basicAuthInterceptor() {
+		return new BasicAuthInterceptor();
+	}
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(basicAuthInterceptor());
-    }
+	@Bean
+	public SecurityLoginCheckInterceptor securityLoginCheckInterceptor() {
+		return new SecurityLoginCheckInterceptor();
+	}
 
-    @Bean
-    public LoginUserHandlerMethodArgumentResolver loginUserArgumentResolver() {
-        return new LoginUserHandlerMethodArgumentResolver();
-    }
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(basicAuthInterceptor());
+		registry.addInterceptor(securityLoginCheckInterceptor()).addPathPatterns("/login");
+	}
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(loginUserArgumentResolver());
-    }
+	@Bean
+	public LoginUserHandlerMethodArgumentResolver loginUserArgumentResolver() {
+		return new LoginUserHandlerMethodArgumentResolver();
+	}
+
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		argumentResolvers.add(loginUserArgumentResolver());
+	}
+
 }

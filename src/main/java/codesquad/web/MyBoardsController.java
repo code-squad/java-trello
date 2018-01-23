@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import codesquad.domain.Member;
-import codesquad.security.LoginUser;
 import codesquad.service.MemberService;
 
 @Controller

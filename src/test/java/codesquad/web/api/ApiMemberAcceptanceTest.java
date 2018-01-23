@@ -30,8 +30,8 @@ public class ApiMemberAcceptanceTest extends AcceptanceTest {
 	public void createAlreadyExistedMember() throws Exception {
 		MemberDto newMember = new MemberDto("testMember", "password", "hue@korea.kr");
 		given()
-			.auth()
-			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
+//			.auth()
+//			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
 			.contentType(ContentType.JSON)
 			.body(newMember)
 		.when()

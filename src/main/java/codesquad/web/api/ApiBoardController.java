@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import codesquad.domain.Board;
 import codesquad.domain.Member;
-import codesquad.security.LoginUser;
 import codesquad.service.BoardService;
 import codesquad.service.MemberService;
 
 @RestController
 @RequestMapping("/api/boards")
 public class ApiBoardController {
-	private static final Logger log = LoggerFactory.getLogger(ApiBoardController.class);
 	
 	@Resource(name = "boardService")
 	private BoardService boardService;

@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 
 import codesquad.domain.Card;
-import io.restassured.authentication.FormAuthConfig;
 import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
 
@@ -18,7 +17,9 @@ public class ApiCardAcceptanceTest extends AcceptanceTest{
 		card.setName("newCard");
 		given()
 			.auth()
-			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
+			.preemptive()
+			.basic("hue@korea.kr", "password")
+//			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
 			.contentType(ContentType.JSON)
 			.body(card)
 		.when()

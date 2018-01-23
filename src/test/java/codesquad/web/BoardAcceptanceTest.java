@@ -1,33 +1,30 @@
 package codesquad.web;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static io.restassured.RestAssured.given;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import io.restassured.authentication.FormAuthConfig;
+import support.test.AcceptanceTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class BoardAcceptanceTest {
-	private static final Logger log = LoggerFactory.getLogger(BoardAcceptanceTest.class);
+public class BoardAcceptanceTest extends AcceptanceTest{
 	
-	@Autowired
-	private TestRestTemplate template;
-
 	@Test
 	public void board() {
-		ResponseEntity<String> response = template.getForEntity("/boards/1", String.class);
-		assertThat(response.getStatusCode(), is(HttpStatus.OK));
-		log.debug("body : {}", response.getBody());
+		given()
+			.auth()
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
+		.when()
+			.get("/boards/1")
+		.then()
+			.statusCode(HttpStatus.OK.value());
 	}
 
 }

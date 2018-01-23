@@ -4,8 +4,6 @@ import static io.restassured.RestAssured.given;
 
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 import codesquad.domain.Board;
@@ -14,14 +12,13 @@ import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
 
 public class ApiBoardsAcceptanceTest extends AcceptanceTest{
-	private static final Logger log = LoggerFactory.getLogger(ApiBoardsAcceptanceTest.class);
 	
 	@Test
 	public void showBaord() {
 		given()
-//			.auth()
-//			.preemptive()
-//			.basic("hue@korea.kr","password")
+			.auth()
+			.preemptive()
+			.basic("hue@korea.kr","password")
 		.when()
 			.get("/api/boards")
 		.then()
