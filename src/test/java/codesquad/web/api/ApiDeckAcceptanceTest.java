@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 import codesquad.domain.Deck;
+import io.restassured.authentication.FormAuthConfig;
 import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
 
@@ -18,7 +19,9 @@ public class ApiDeckAcceptanceTest extends AcceptanceTest{
 	public void create() {
 		Deck deck = new Deck();
 		deck.setName("newDeck");
-		given()
+		given()			
+			.auth()
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
 			.contentType(ContentType.JSON)
 			.body(deck)
 		.when()

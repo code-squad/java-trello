@@ -26,10 +26,11 @@ public class ApiLoginAcceptanceTest extends AcceptanceTest{
 	public void loginSuccess() throws Exception {
 		MemberDto newMember = new MemberDto("hue@korea.kr", "password");
 		given()
-			.contentType(ContentType.JSON)
-			.body(newMember)
+		.auth().form("hue@korea.kr", "password")
+//			.contentType(ContentType.JSON)
+//			.body(newMember)
 		.when()
-			.post("/api/login")
+			.post("/login")
 		.then()
 			.statusCode(HttpStatus.OK.value());
 	}

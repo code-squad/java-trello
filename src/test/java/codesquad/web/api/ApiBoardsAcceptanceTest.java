@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 import codesquad.domain.Board;
+import io.restassured.authentication.FormAuthConfig;
 import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
 
@@ -18,9 +19,9 @@ public class ApiBoardsAcceptanceTest extends AcceptanceTest{
 	@Test
 	public void showBaord() {
 		given()
-			.auth()
-			.preemptive()
-			.basic("hue@korea.kr","password")
+//			.auth()
+//			.preemptive()
+//			.basic("hue@korea.kr","password")
 		.when()
 			.get("/api/boards")
 		.then()
@@ -41,8 +42,11 @@ public class ApiBoardsAcceptanceTest extends AcceptanceTest{
 		Board boardDto = new Board("newBoard");
 		given()
 			.auth()
-			.preemptive()
-			.basic("hue@korea.kr","password")
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
+
+//			.auth()
+//			.preemptive()
+//			.basic("hue@korea.kr","password")
 			.contentType(ContentType.JSON)
 			.body(boardDto)
 		.when()
@@ -54,8 +58,7 @@ public class ApiBoardsAcceptanceTest extends AcceptanceTest{
 		//두개 이상 만들어도 문제 없는지 확인
 		given()
 			.auth()
-			.preemptive()
-			.basic("hue@korea.kr","password")
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
 			.contentType(ContentType.JSON)
 			.body(boardDto)
 		.when()
