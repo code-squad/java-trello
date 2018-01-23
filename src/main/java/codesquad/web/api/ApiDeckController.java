@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import codesquad.domain.Deck;
-import codesquad.domain.DeckRepository;
 import codesquad.service.BoardService;
-import codesquad.service.DeckService;
 
 @RestController
 @RequestMapping("/api/boards")

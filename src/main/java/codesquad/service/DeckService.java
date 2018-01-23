@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import codesquad.domain.Card;
 import codesquad.domain.Deck;
-import codesquad.domain.DeckRepository;
+import codesquad.domain.repository.DeckRepository;
 
 @Service("deckService")
 public class DeckService {

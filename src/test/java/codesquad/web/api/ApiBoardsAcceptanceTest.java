@@ -4,16 +4,14 @@ import static io.restassured.RestAssured.given;
 
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 import codesquad.domain.Board;
+import io.restassured.authentication.FormAuthConfig;
 import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
 
 public class ApiBoardsAcceptanceTest extends AcceptanceTest{
-	private static final Logger log = LoggerFactory.getLogger(ApiBoardsAcceptanceTest.class);
 	
 	@Test
 	public void showBaord() {
@@ -41,8 +39,11 @@ public class ApiBoardsAcceptanceTest extends AcceptanceTest{
 		Board boardDto = new Board("newBoard");
 		given()
 			.auth()
-			.preemptive()
-			.basic("hue@korea.kr","password")
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
+
+//			.auth()
+//			.preemptive()
+//			.basic("hue@korea.kr","password")
 			.contentType(ContentType.JSON)
 			.body(boardDto)
 		.when()
@@ -54,8 +55,7 @@ public class ApiBoardsAcceptanceTest extends AcceptanceTest{
 		//두개 이상 만들어도 문제 없는지 확인
 		given()
 			.auth()
-			.preemptive()
-			.basic("hue@korea.kr","password")
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
 			.contentType(ContentType.JSON)
 			.body(boardDto)
 		.when()

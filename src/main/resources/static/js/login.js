@@ -1,4 +1,4 @@
-$(".login-form button[type=submit]").click(login);
+//$(".login-form button[type=submit]").click(login);
 
 function login(e) {
 	e.preventDefault();

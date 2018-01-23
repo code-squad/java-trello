@@ -3,38 +3,37 @@ package codesquad.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
-	private static final Logger log = LoggerFactory.getLogger(User.class);
-	public static final GuestUser GUEST_USER = new GuestUser();
+public class Member {
+	public static final GuestMember GUEST_MEMBER = new GuestMember();
 
 	@Id
 	@GeneratedValue
-	@Column(name = "USER_ID")
+	@Column(name = "MEMBER_ID")
 	private long id;
 
 	@Size(min = 3, max = 20)
 	@Column(nullable = false, length = 20)
 	private String name;
 
-	@Size(min = 6, max = 20)
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false)
 	@JsonIgnore
 	private String password;
 
@@ -46,27 +45,32 @@ public class User {
 	@ManyToMany
 	@OrderBy("id ASC")
 	@JoinTable(name = "board_list", 
-	joinColumns = @JoinColumn(name = "USER_ID"), 
+	joinColumns = @JoinColumn(name = "MEMBER_ID"), 
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID"))
 	private List<Board> boardList = new ArrayList<>();
-
-	public User() {
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="member")
+	private List<MemberRole> roles = new ArrayList<>();
+	
+	public Member() {
 		this("", "");
 	}
 
-	public User(String email, String password) {
+	public Member(String email, String password) {
 		this("", password, email);
 	}
 
-	public User(String name, String password, String email) {
+	public Member(String name, String password, String email) {
 		this(0L, name, password, email);
 	}
 
-	public User(long id, String name, String password, String email) {
+	public Member(long id, String name, String password, String email) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.email = email;
+		this.roles.add(new MemberRole(MemberRole.USER));
 	}
 
 	public boolean matchPassword(String password) {
@@ -78,13 +82,13 @@ public class User {
 	}
 
 	@JsonIgnore
-	public boolean isGuestUser() {
+	public boolean isGuestMember() {
 		return false;
 	}
 
-	private static class GuestUser extends User {
+	private static class GuestMember extends Member {
 		@Override
-		public boolean isGuestUser() {
+		public boolean isGuestMember() {
 			return true;
 		}
 	}
@@ -128,6 +132,14 @@ public class User {
 	public void setBoardList(List<Board> boardList) {
 		this.boardList = boardList;
 	}
+	
+	public List<MemberRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<MemberRole> roles) {
+		this.roles = roles;
+	}
 
 	@Override
 	public int hashCode() {
@@ -146,7 +158,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Member other = (Member) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -162,7 +174,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email;
+		return "Member [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email;
 	}
 
 }

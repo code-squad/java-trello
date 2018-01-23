@@ -1,40 +1,39 @@
 package codesquad.web;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static io.restassured.RestAssured.given;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import io.restassured.authentication.FormAuthConfig;
+import support.test.AcceptanceTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class BoardsAcceptanceTest {
-	private static final Logger log = LoggerFactory.getLogger(BoardsAcceptanceTest.class);
-
-	@Autowired
-	private TestRestTemplate template;
+public class BoardsAcceptanceTest extends AcceptanceTest{
 
 	@Test
 	public void show() {
-		ResponseEntity<String> response = template.withBasicAuth("hue@korea.kr", "password")
-															.getForEntity("/myboards", String.class);
-		assertThat(response.getStatusCode(), is(HttpStatus.OK));
-		log.debug("body : {}", response.getBody());
+		given()
+			.auth()
+			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
+		.when()
+			.get("/myboards")
+		.then()
+			.statusCode(HttpStatus.OK.value());
 	}
 	
 	@Test
 	public void showNoLogin() {
-		ResponseEntity<String> response = template.getForEntity("/myboards", String.class);
-		assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
+		given()
+		.when()
+			.get("/myboards")
+		.then()
+			.statusCode(HttpStatus.FORBIDDEN.value());
 	}
 
 }

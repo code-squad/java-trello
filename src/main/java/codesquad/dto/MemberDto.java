@@ -2,33 +2,34 @@ package codesquad.dto;
 
 import javax.validation.constraints.Size;
 
-import codesquad.domain.User;
+import codesquad.domain.Member;
 
-public class UserDto {
+public class MemberDto {
 	@Size(min = 3, max = 20)
 	private String name;
-	@Size(min = 6, max = 20)
+	
 	private String password;
+	
 	@Size(min = 6, max = 50)
 	private String email;
 
-	public UserDto() {
+	public MemberDto() {
 	}
 
-	public UserDto(String email, String password) {
+	public MemberDto(String email, String password) {
 		this("none", password, email);
 	}
 
-	public UserDto(String name, String password, String email) {
+	public MemberDto(String name, String password, String email) {
 		this.name = name;
 		this.password = password;
 		this.email = email;
 	}
 
-	public User toUser() {
-		return new User(name, password, email);
+	public Member toMember() {
+		return new Member(name, password, email);
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -53,4 +54,9 @@ public class UserDto {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "MemberDto [username=" + name + ", password=" + password + ", email=" + email + "]";
+	}
+	
 }

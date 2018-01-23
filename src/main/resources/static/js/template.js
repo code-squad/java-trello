@@ -14,7 +14,7 @@ var Template = {
                        "<div class='add-card-form'>" +
                           "<textarea class='card-title'></textarea>" +
                           "<div class='btn-area'>" +
-                            "<button class='btn waves-effect waves-light save-card'>save</button>" +
+                            "<button class='btn waves-effect waves-light save-card' id={{id}}>save</button>" +
                             "<button class='btn waves-effect waves-light cancel-card'>cancel</button>" +
                           "</div>" +
                        "</div>" +

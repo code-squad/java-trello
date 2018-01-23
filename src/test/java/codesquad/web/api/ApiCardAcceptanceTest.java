@@ -16,6 +16,10 @@ public class ApiCardAcceptanceTest extends AcceptanceTest{
 		Card card = new Card();
 		card.setName("newCard");
 		given()
+			.auth()
+			.preemptive()
+			.basic("hue@korea.kr", "password")
+//			.form("hue@korea.kr", "password", new FormAuthConfig("/login", "username", "password"))
 			.contentType(ContentType.JSON)
 			.body(card)
 		.when()

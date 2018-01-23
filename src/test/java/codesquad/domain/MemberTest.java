@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UserTest {
-	private User user;
+public class MemberTest {
+	private Member user;
 	
 	@Before
 	public void setup() {
-		user = new User("hue", "password", "hue@korea.kr");
+		user = new Member("hue", "password", "hue@korea.kr");
 	}
 	
 	@Test

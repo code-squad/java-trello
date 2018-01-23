@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import codesquad.domain.Card;
-import codesquad.domain.CardRepository;
+import codesquad.domain.repository.CardRepository;
 
 @Service("cardService")
 public class CardService {

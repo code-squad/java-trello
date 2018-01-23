@@ -13,37 +13,37 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import codesquad.UnAuthenticationException;
-import codesquad.domain.User;
-import codesquad.domain.UserRepository;
+import codesquad.domain.Member;
+import codesquad.domain.repository.MemberRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
+public class MemberServiceTest {
 	@Mock
-	private UserRepository userRepository;
+	private MemberRepository userRepository;
 
 	@InjectMocks
-	private UserService userService;
+	private MemberService userService;
 
 	@Test
 	public void loginSuccess() {
-		User user = new User("hue", "password", "hue@korea.kr");
+		Member user = new Member("hue", "password", "hue@korea.kr");
 		when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-		User loginUser = userService.login(user);
+		Member loginUser = userService.login(user);
 		assertThat(loginUser, is(user));
 	}
 
 	@Test(expected = UnAuthenticationException.class)
 	public void loginOtherEmail() {
-		User user = new User("hue", "password", "hue@korea.kr");
+		Member user = new Member("hue", "password", "hue@korea.kr");
 		when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 		userService.login(user);
 	}
 
 	@Test(expected = UnAuthenticationException.class)
 	public void loginOtherPassword() {
-		User user = new User("hue", "password", "hue@korea.kr");
-		User otheruser = new User("hue", "password22", "hue@korea.kr");
+		Member user = new Member("hue", "password", "hue@korea.kr");
+		Member otheruser = new Member("hue", "password22", "hue@korea.kr");
 
 		when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 		userService.login(otheruser);

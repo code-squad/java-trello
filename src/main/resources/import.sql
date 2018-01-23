@@ -1,11 +1,14 @@
-INSERT INTO user (user_id, name, password, email) values (1, 'hue', 'password', 'hue@korea.kr');
-INSERT INTO user (user_id, name, password, email) values (2, 'java', 'password', 'java@korea.kr');
+INSERT INTO member (member_id, name, password, email) values (1, 'hue', '$2a$10$Q.0rL09Y9aGSITtvaS0JG.dMc84kaeqUsEJpAf55PhzbCp8lWbgB2', 'hue@korea.kr');
+INSERT INTO member (member_id, name, password, email) values (2, 'java', '$2a$10$Q.0rL09Y9aGSITtvaS0JG.dMc84kaeqUsEJpAf55PhzbCp8lWbgB2', 'java@korea.kr');
+
+INSERT INTO member_roles (id, role_name, member) values ( 1, 'USER', 1);
+INSERT INTO member_roles (id, role_name, member) values ( 2, 'USER', 2);
 
 INSERT INTO board (board_id, name) values (1, 'first board');
 INSERT INTO board (board_id, name) values (2, 'second board');
 
-INSERT INTO board_list (user_id, board_id) values (1,1);
-INSERT INTO board_list (user_id, board_id) values (1,2);
+INSERT INTO board_list (member_id, board_id) values (1,1);
+INSERT INTO board_list (member_id, board_id) values (1,2);
 
 INSERT INTO deck (deck_id, name) values (1,'first deck');
 INSERT INTO deck (deck_id, name) values (2,'second deck');

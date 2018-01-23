@@ -1,18 +1,16 @@
-package codesquad.web.api;
+package codesquad.web;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 
-import codesquad.dto.UserDto;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import support.test.AcceptanceTest;
 
 import static io.restassured.RestAssured.given;
 
-public class ApiLoginAcceptanceTest extends AcceptanceTest{
+public class LoginAcceptanceTest extends AcceptanceTest{
 	@Value("${local.server.port}")
 	private int serverPort;
 
@@ -23,38 +21,36 @@ public class ApiLoginAcceptanceTest extends AcceptanceTest{
 
 	@Test
 	public void loginSuccess() throws Exception {
-		UserDto newUser = new UserDto("hue@korea.kr", "password");
 		given()
-			.contentType(ContentType.JSON)
-			.body(newUser)
+				.param("username", "hue@korea.kr")
+				.param("password", "password")
 		.when()
-			.post("/api/login")
+			.post("/login")
 		.then()
-			.statusCode(HttpStatus.OK.value());
+			.statusCode(HttpStatus.FOUND.value());
 	}
 
 	@Test
 	public void loginEmptyEmail() throws Exception {
-		UserDto newUser = new UserDto("wwww" + "hue@korea.kr", "password");
 		given()
-			.contentType(ContentType.JSON)
-			.body(newUser)
+			.param("username", "other" + "hue@korea.kr")
+			.param("password", "password")
 		.when()
-			.post("/api/login")
+			.post("/login")
 		.then()
 			.statusCode(HttpStatus.UNAUTHORIZED.value());
 	}
 
 	@Test
 	public void loginOtherPassword() throws Exception {
-		UserDto newUser = new UserDto("hue@korea.kr", "password" + "222");
+
 		given()
-			.contentType(ContentType.JSON)
-			.body(newUser)
+			.param("username", "hue@korea.kr")
+			.param("password", "other" +  "password")
 		.when()
-			.post("/api/login")
+			.post("/login")
 		.then()
 			.statusCode(HttpStatus.UNAUTHORIZED.value());
 	}
-
+	
 }

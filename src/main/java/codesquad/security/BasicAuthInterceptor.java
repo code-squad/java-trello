@@ -12,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import codesquad.UnAuthenticationException;
-import codesquad.domain.User;
-import codesquad.service.UserService;
+import codesquad.domain.Member;
+import codesquad.service.MemberService;
 
 public class BasicAuthInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger log = LoggerFactory.getLogger(BasicAuthInterceptor.class);
 
 	@Autowired
-	private UserService userService;
+	private MemberService userService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -37,7 +37,7 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter {
 		log.debug("password : {}", values[1]);
 		
 		try {
-			User user = userService.login(new User(values[0], values[1]));
+			Member user = userService.login(new Member(values[0], values[1]));
 			request.getSession().setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
 			log.debug("Authorization Success");
 			return true;
